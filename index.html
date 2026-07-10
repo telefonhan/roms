@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telefonhan ROM Archive</title>
+    <!-- İkonlar İçin FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -77,9 +78,9 @@
             overflow: hidden;
         }
 
-        /* SOL SIDEBAR: Cihaz Listesi */
+        /* SOL SIDEBAR: Kategori ve Cihaz Listesi */
         .sidebar {
-            width: 240px;
+            width: 260px;
             background: #000000;
             border-right: 1px solid #1a1a1a;
             display: flex;
@@ -92,18 +93,67 @@
             color: #555555;
             padding: 12px 15px 5px 15px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Marka Başlığı (Accordion Butonu) */
+        .brand-cluster {
+            border-bottom: 1px solid #090909;
+        }
+
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            background: #050505;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .brand-header:hover {
+            background: #0a0a0a;
+        }
+
+        .brand-header i {
+            font-size: 0.8rem;
+            color: #555555;
+            transition: transform 0.2s;
+        }
+
+        /* Aktif Markanın Oku Dönecek */
+        .brand-cluster.active .brand-header i {
+            transform: rotate(180deg);
+            color: #0088ff;
+        }
+
+        /* Markaya Ait Cihaz Alt Menüsü */
+        .brand-devices {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+            background: #020202;
+        }
+
+        .brand-cluster.active .brand-devices {
+            max-height: 500px; /* Cihaz sayısına göre genişleyebilecek alan */
         }
 
         /* Cihaz Liste Elemanları */
         .device-item {
-            padding: 10px 15px;
+            padding: 10px 25px;
             font-size: 0.85rem;
             color: #0088ff; 
             cursor: pointer;
             user-select: none;
             white-space: normal;
             word-wrap: break-word;
-            border-bottom: 1px solid #090909;
+            border-bottom: 1px solid #050505;
             line-height: 1.3;
         }
 
@@ -116,6 +166,8 @@
             background: #0a0a0a;
             color: #ffffff;
             font-weight: bold;
+            border-left: 3px solid #0088ff;
+            padding-left: 22px;
         }
 
         /* SAĞ ANA ALAN: Saf Tablo */
@@ -224,6 +276,7 @@
 </head>
 <body>
 
+    <!-- ÜST BAR -->
     <header class="archive-header">
         <div class="header-title">
             <h1>TELEFONHAN ROM ARCHIVE</h1>
@@ -236,23 +289,48 @@
 
     <div class="main-wrapper">
         
+        <!-- SOL SIDEBAR (MARKALARA GÖRE KATEGORİLENDİRİLMİŞ CİHAZ AĞACI) -->
         <aside class="sidebar">
-            <div class="sidebar-title">Devices</div>
-            <div class="device-list">
-                <div class="device-item" onclick="openDeviceMenu('whyred', this)">Redmi Note 5 (whyred)</div>
-                <div class="device-item" onclick="openDeviceMenu('a10', this)">Samsung Galaxy A10 (a10)</div>
-                <div class="device-item" onclick="openDeviceMenu('j5lte', this)">Samsung Galaxy J5 2015 (j5lte)</div>
-                <div class="device-item" onclick="openDeviceMenu('j7elte', this)">Samsung Galaxy J7 2015 (j7elte)</div>
-                <div class="device-item" onclick="openDeviceMenu('on7xelte', this)">Samsung Galaxy J7 Prime (on7xelte)</div>
+            <div class="sidebar-title">Brands</div>
+            
+            <!-- SAMSUNG KATEGORİSİ -->
+            <div class="brand-cluster">
+                <div class="brand-header" onclick="toggleBrand(this)">
+                    <span>Samsung</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('a10', this)">Galaxy A10 (a10)</div>
+                    <div class="device-item" onclick="openDeviceMenu('j5lte', this)">Galaxy J5 2015 (j5lte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('j7elte', this)">Galaxy J7 2015 (j7elte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('on7xelte', this)">Galaxy J7 Prime (on7xelte)</div>
+                </div>
             </div>
+
+            <!-- XIAOMI KATEGORİSİ -->
+            <div class="brand-cluster">
+                <div class="brand-header" onclick="toggleBrand(this)">
+                    <span>Xiaomi / Redmi</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('whyred', this)">Redmi Note 5 (whyred)</div>
+                </div>
+            </div>
+
         </aside>
 
+        <!-- SAĞ İÇERİK ALANI -->
         <main class="content-area" id="contentArea">
             
+            <!-- Giriş Ekranı -->
             <div id="welcomeScreen" class="welcome-screen">
-                <p>Lütfen sol menüden bir cihaz seçin.</p>
+                <p>Lütfen sol menüden bir marka ve cihaz seçin.</p>
             </div>
 
+            <!-- ==============================================
+                 1. REDMI NOTE 5 (WHYRED)
+                 ============================================== -->
             <div id="menu-whyred" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -301,6 +379,9 @@
                 </table>
             </div>
 
+            <!-- ==============================================
+                 2. SAMSUNG GALAXY A10 (A10)
+                 ============================================== -->
             <div id="menu-a10" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -341,6 +422,9 @@
                 </table>
             </div>
 
+            <!-- ==============================================
+                 3. SAMSUNG GALAXY J5 2015 (J5LTE)
+                 ============================================== -->
             <div id="menu-j5lte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -366,7 +450,7 @@
                             <td>2021-11-15</td>
                             <td>UNOFFICIAL</td>
                             <td>795.02 MB</td>
-                            <td><a href="https://www.mediafire.com/file/1af5b3..." class="download-link" target="_blank">LineageOS 18.1</a></td>
+                            <td><a href="#" class="download-link" target="_blank">LineageOS 18.1</a></td>
                         </tr>
                         <tr>
                             <td>lineage-20.0-20220928-UNOFFICIAL-j5lte.zip</td>
@@ -374,7 +458,7 @@
                             <td>2022-09-28</td>
                             <td>UNOFFICIAL</td>
                             <td>684.12 MB</td>
-                            <td><a href="https://www.mediafire.com/file/1af5b3..." class="download-link" target="_blank">LineageOS 20.0</a></td>
+                            <td><a href="#" class="download-link" target="_blank">LineageOS 20.0</a></td>
                         </tr>
                         <tr>
                             <td>twrp-3.6.1_9-0-j5lte.img.tar</td>
@@ -388,6 +472,9 @@
                 </table>
             </div>
 
+            <!-- ==============================================
+                 4. SAMSUNG GALAXY J7 2015 (J7ELTE)
+                 ============================================== -->
             <div id="menu-j7elte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -419,6 +506,9 @@
                 </table>
             </div>
 
+            <!-- ==============================================
+                 5. SAMSUNG GALAXY J7 PRIME (ON7XELTE)
+                 ============================================== -->
             <div id="menu-on7xelte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -439,6 +529,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- ROM DOSYALARI -->
                         <tr>
                             <td>lineage-16.0-20181221-UNOFFICIAL-on7xelte.zip</td>
                             <td>Android 9 (Pie)</td>
@@ -463,6 +554,7 @@
                             <td>657.18 MB</td>
                             <td><a href="https://www.mediafire.com/file/ekblm0qf42aohza/lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 19.1</a></td>
                         </tr>
+                        <!-- RECOVERY DOSYALARI -->
                         <tr>
                             <td>TWRP-3.2.1-For-Galaxy-J7-Prime.tar</td>
                             <td>TWRP 3.2.1</td>
@@ -510,7 +602,26 @@
         </main>
     </div>
 
+    <!-- DRIVER SCRIPTLER -->
     <script>
+        // Marka Başlıklarına Tıklayınca Açma/Kapatma İşlevi
+        function toggleBrand(headerElement) {
+            const cluster = headerElement.parentElement;
+            
+            // Eğer tıklandığında açık olan diğer markaları kapatmak istiyorsan bu bloğu aktif edebilirsin
+            /*
+            const allClusters = document.getElementsByClassName('brand-cluster');
+            for(let i=0; i<allClusters.length; i++) {
+                if(allClusters[i] !== cluster) {
+                    allClusters[i].classList.remove('active');
+                }
+            }
+            */
+
+            cluster.classList.toggle('active');
+        }
+
+        // Cihaz Menüsünü Sağ Tarafta Açma İşlevi
         function openDeviceMenu(codename, element) {
             document.getElementById('welcomeScreen').style.display = 'none';
 
@@ -531,18 +642,45 @@
             element.classList.add('active');
         }
 
+        // Arama Kutusu Filtreleme İşlevi
         function filterDevices() {
             const searchInput = document.getElementById('searchBox').value.toLowerCase();
             const items = document.getElementsByClassName('device-item');
+            const clusters = document.getElementsByClassName('brand-cluster');
 
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                const text = item.innerText.toLowerCase();
+            // Eğer arama kutusu boşsa tüm markaları eski kapalı/açık haline getir
+            if(searchInput === "") {
+                for(let i=0; i<clusters.length; i++) {
+                    clusters[i].classList.remove('active'); // İsteğe göre kapatabilir ya da açık bırakabilirsin
+                    const currentItems = clusters[i].getElementsByClassName('device-item');
+                    for(let j=0; j<currentItems.length; j++) {
+                        currentItems[j].style.display = "block";
+                    }
+                }
+                return;
+            }
 
-                if (text.includes(searchInput)) {
-                    item.style.display = "block";
+            // Arama yapılıyorsa eşleşen cihazları göster ve ait olduğu markayı otomatik aç
+            for (let i = 0; i < clusters.length; i++) {
+                let brandHasMatch = false;
+                const currentItems = clusters[i].getElementsByClassName('device-item');
+
+                for (let j = 0; j < currentItems.length; j++) {
+                    const item = currentItems[j];
+                    const text = item.innerText.toLowerCase();
+
+                    if (text.includes(searchInput)) {
+                        item.style.display = "block";
+                        brandHasMatch = true;
+                    } else {
+                        item.style.display = "none";
+                    }
+                }
+
+                if (brandHasMatch) {
+                    clusters[i].classList.add('active');
                 } else {
-                    item.style.display = "none";
+                    clusters[i].classList.remove('active');
                 }
             }
         }
