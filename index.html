@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telefonhan ROM Archive</title>
-    <!-- İkonlar İçin FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -225,7 +224,6 @@
 </head>
 <body>
 
-    <!-- ÜST BAR -->
     <header class="archive-header">
         <div class="header-title">
             <h1>TELEFONHAN ROM ARCHIVE</h1>
@@ -238,7 +236,6 @@
 
     <div class="main-wrapper">
         
-        <!-- SOL SIDEBAR (CİHAZ AĞACI) -->
         <aside class="sidebar">
             <div class="sidebar-title">Devices</div>
             <div class="device-list">
@@ -250,17 +247,12 @@
             </div>
         </aside>
 
-        <!-- SAĞ İÇERİK ALANI -->
         <main class="content-area" id="contentArea">
             
-            <!-- Giriş Ekranı -->
             <div id="welcomeScreen" class="welcome-screen">
                 <p>Lütfen sol menüden bir cihaz seçin.</p>
             </div>
 
-            <!-- ==============================================
-                 1. REDMI NOTE 5 (WHYRED)
-                 ============================================== -->
             <div id="menu-whyred" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -309,9 +301,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 2. SAMSUNG GALAXY A10 (A10)
-                 ============================================== -->
             <div id="menu-a10" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -352,9 +341,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 3. SAMSUNG GALAXY J5 2015 (J5LTE)
-                 ============================================== -->
             <div id="menu-j5lte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -402,9 +388,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 4. SAMSUNG GALAXY J7 2015 (J7ELTE)
-                 ============================================== -->
             <div id="menu-j7elte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -436,14 +419,12 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 5. SAMSUNG GALAXY J7 PRIME (ON7XELTE) - TÜM LİNKLER EKLENDİ
-                 ============================================== -->
             <div id="menu-on7xelte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
                     <ul>
-                        <li>J7 Prime için TWRP Recovery yapılarıdır. Odin üzerinden (.tar) veya mevcut recovery'den (.img) flaşlayabilirsiniz.</li>
+                        <li>J7 Prime için test edilmiş LineageOS ROM ve TWRP Recovery yapılarıdır.</li>
+                        <li>Odin üzerinden yükleme yaparken (.tar), cihaz üzerinden yükleme yaparken (.img veya .zip) formatlarını kullanın.</li>
                     </ul>
                 </div>
                 <table class="rom-table">
@@ -458,6 +439,30 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>lineage-16.0-20181221-UNOFFICIAL-on7xelte.zip</td>
+                            <td>16.0 (Pie)</td>
+                            <td>2018-12-21</td>
+                            <td>UNOFFICIAL</td>
+                            <td>412.50 MB</td>
+                            <td><a href="https://www.mediafire.com/file/wwtkliyfx1yyiaa/lineage-16.0-20181221-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 16.0</a></td>
+                        </tr>
+                        <tr>
+                            <td>lineage-18.1-20240508-UNOFFICIAL-on7xelte.zip</td>
+                            <td>18.1 (Q)</td>
+                            <td>2024-05-08</td>
+                            <td>UNOFFICIAL</td>
+                            <td>567.48 MB</td>
+                            <td><a href="https://www.mediafire.com/file/ei6mqcc05sispcl/lineage-18.1-20240508-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 18.1</a></td>
+                        </tr>
+                        <tr>
+                            <td>lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip</td>
+                            <td>19.1 (An12L)</td>
+                            <td>2026-02-15</td>
+                            <td>UNOFFICIAL</td>
+                            <td>657.18 MB</td>
+                            <td><a href="https://www.mediafire.com/file/ekblm0qf42aohza/lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 19.1</a></td>
+                        </tr>
                         <tr>
                             <td>TWRP-3.2.1-For-Galaxy-J7-Prime.tar</td>
                             <td>3.2.1</td>
@@ -505,7 +510,6 @@
         </main>
     </div>
 
-    <!-- SÜRÜCÜ SCRIPTLER -->
     <script>
         function openDeviceMenu(codename, element) {
             document.getElementById('welcomeScreen').style.display = 'none';
