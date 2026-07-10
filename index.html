@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefonhan ROM Archive</title>
+    <!-- İkonlar İçin FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Görseldeki Gibi Tamamen Siyah ve Saf Arayüz Ayarları */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000000; /* Tam siyah arka plan */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Üst Header Alanı */
+        .archive-header {
+            background: #090909;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title h1 {
+            font-size: 1.3rem;
+            color: #0088ff; /* Görseldeki link mavisi */
+            font-weight: bold;
+        }
+
+        /* Üst Menü Arama Kutusu */
+        .search-container {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px 8px 35px;
+            font-size: 0.85rem;
+            background-color: #000000;
+            border: 1px solid #222222;
+            border-radius: 4px;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: #0088ff;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #444444;
+            font-size: 0.85rem;
+        }
+
+        /* ANA EKRAN YERLEŞİMİ */
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* SOL SIDEBAR: Tamamen Sade Cihaz Listesi */
+        .sidebar {
+            width: 240px;
+            background: #000000;
+            border-right: 1px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            color: #555555;
+            padding: 12px 15px 5px 15px;
+            font-weight: bold;
+        }
+
+        /* Cihaz Liste Elemanları */
+        .device-item {
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            color: #0088ff; 
+            cursor: pointer;
+            user-select: none;
+            white-space: normal;
+            word-wrap: break-word;
+            border-bottom: 1px solid #090909;
+            line-height: 1.3;
+        }
+
+        .device-item:hover {
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .device-item.active {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* SAĞ ANA ALAN: Saf Tablo */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            background: #000000;
+        }
+
+        /* İlk Karşılama Alanı */
+        .welcome-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #333333;
+            font-size: 0.85rem;
+        }
+
+        /* Tablo Kapsayıcısı */
+        .rom-table-container {
+            display: none;
+        }
+
+        .rom-table-container.active {
+            display: block;
+        }
+
+        /* Cihaza Özel Manuel Not Menüsü */
+        .device-notes {
+            background: #050b14;
+            border-left: 3px solid #0088ff;
+            padding: 12px 18px;
+            margin: 15px;
+            border-radius: 2px;
+        }
+
+        .device-notes h4 {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #0088ff;
+            margin-bottom: 5px;
+        }
+
+        .device-notes ul {
+            list-style-type: disc;
+            margin-left: 15px;
+            font-size: 0.8rem;
+            color: #aaaaaa;
+            line-height: 1.5;
+        }
+
+        /* Birebir Görseldeki Tablo Tasarımı */
+        .rom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .rom-table th {
+            background: #090909;
+            color: #666666;
+            font-size: 0.8rem;
+            font-weight: normal;
+            padding: 10px 15px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .rom-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #0c0c0c;
+            font-size: 0.85rem;
+            color: #aaaaaa;
+        }
+
+        .rom-table tr:hover td {
+            background: #050505;
+        }
+
+        /* İndirme Linkleri */
+        .download-link {
+            color: #0088ff;
+            text-decoration: none;
+        }
+
+        .download-link:hover {
+            text-decoration: underline;
+        }
+
+        /* İnce Kaydırma Çubukları */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1a1a1a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #252525;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ÜST BAR -->
+    <header class="archive-header">
+        <div class="header-title">
+            <h1>TELEFONHAN ROM ARCHIVE</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box" placeholder="Cihaz veya kod adı ara..." onkeyup="filterDevices()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </header>
+
+    <div class="main-wrapper">
+        
+        <!-- SOL SIDEBAR (CİHAZ AĞACI) -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Devices</div>
+            <div class="device-list">
+                <div class="device-item" onclick="openDeviceMenu('whyred', this)">Redmi Note 5 (whyred)</div>
+                <div class="device-item" onclick="openDeviceMenu('a10', this)">Samsung Galaxy A10 (a10)</div>
+                <div class="device-item" onclick="openDeviceMenu('j5lte', this)">Samsung Galaxy J5 2015 (j5lte)</div>
+                <div class="device-item" onclick="openDeviceMenu('j7elte', this)">Samsung Galaxy J7 2015 (j7elte)</div>
+                <div class="device-item" onclick="openDeviceMenu('on7xelte', this)">Samsung Galaxy J7 Prime (on7xelte)</div>
+            </div>
+        </aside>
+
+        <!-- SAĞ İÇERİK ALANI -->
+        <main class="content-area" id="contentArea">
+            
+            <!-- Giriş Ekranı -->
+            <div id="welcomeScreen" class="welcome-screen">
+                <p>Lütfen sol menüden bir cihaz seçin.</p>
+            </div>
+
+            <!-- ==============================================
+                 1. REDMI NOTE 5 (WHYRED)
+                 ============================================== -->
+            <div id="menu-whyred" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Flaşlamadan önce recovery sürümünüzün güncel olduğundan emin olun.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Versiyon</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lineage-18.1-20221024-nightly-whyred-signed.zip</td>
+                            <td>11</td>
+                            <td>2022-10-24</td>
+                            <td>OFFICIAL</td>
+                            <td>729.46 MB</td>
+                            <td><a href="https://www.mediafire.com/file/25chsh5qmpz3839/lineage-18.1-20221024-nightly-whyred-signed.zip/file" class="download-link" target="_blank">LineageOS 18.1</a></td>
+                        </tr>
+                        <tr>
+                            <td>lineage-22.2-20250328-UNOFFICIAL-whyred.zip</td>
+                            <td>15</td>
+                            <td>2025-03-28</td>
+                            <td>UNOFFICIAL</td>
+                            <td>1.17 GB</td>
+                            <td><a href="https://www.mediafire.com/file/257ivbj4birw8e7/lineage-22.2-20250328-UNOFFICIAL-whyred.zip/file" class="download-link" target="_blank">LineageOS 22.2</a></td>
+                        </tr>
+                        <tr>
+                            <td>lineage-23.2-20260209-UNOFFICIAL-whyred.zip</td>
+                            <td>16</td>
+                            <td>2026-02-09</td>
+                            <td>UNOFFICIAL</td>
+                            <td>1.10 GB</td>
+                            <td><a href="https://www.mediafire.com/file/z9c4kmtq0ij2csa/lineage-23.2-20260209-UNOFFICIAL-whyred.zip/file" class="download-link" target="_blank">LineageOS 23.2</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 2. SAMSUNG GALAXY A10 (A10) - RECOVERY VE LİNK EKLENDİ
+                 ============================================== -->
+            <div id="menu-a10" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>A10 için kararlı çalışan crDroid yapısı ve TWRP Recovery dosyasıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Versiyon</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>crDroidAndroid-13.0-20231124-a10-v9.11.zip</td>
+                            <td>13</td>
+                            <td>2023-11-24</td>
+                            <td>UNOFFICIAL</td>
+                            <td>839.05 MB</td>
+                            <td><a href="https://www.mediafire.com/file/dj4lr9r4jb62jm3/crDroidAndroid-13.0-20231124-a10-v9.11.zip/file" class="download-link" target="_blank">crDroid v9.11</a></td>
+                        </tr>
+                        <tr>
+                            <td>twrp-3.7.0_11-0-a10.img.tar</td>
+                            <td>3.7.0</td>
+                            <td>2026-07-10</td>
+                            <td>RECOVERY</td>
+                            <td>40.43 MB</td>
+                            <td><a href="https://www.mediafire.com/file/86g91tqisdtytwq/twrp-3.7.0_11-0-a10.img.tar/file" class="download-link" target="_blank">TWRP</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 3. SAMSUNG GALAXY J5 2015 (J5LTE)
+                 ============================================== -->
+            <div id="menu-j5lte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>J5 2015 için test edilmiş güncel LineageOS ve TWRP yapılarıdır.</li>
+                    </ul>
+                </div>
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Versiyon</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lineage-18.1-20211115-UNOFFICIAL-j5lte.zip</td>
+                            <td>11</td>
+                            <td>2021-11-15</td>
+                            <td>UNOFFICIAL</td>
+                            <td>795.02 MB</td>
+                            <td><a href="#" class="download-link" target="_blank">LineageOS</a></td>
+                        </tr>
+                        <tr>
+                            <td>lineage-20.0-20220928-UNOFFICIAL-j5lte.zip</td>
+                            <td>13</td>
+                            <td>2022-09-28</td>
+                            <td>UNOFFICIAL</td>
+                            <td>684.12 MB</td>
+                            <td><a href="#" class="download-link" target="_blank">LineageOS</a></td>
+                        </tr>
+                        <tr>
+                            <td>twrp-3.6.1_9-0-j5lte.img.tar</td>
+                            <td>3.6.1</td>
+                            <td>2026-07-10</td>
+                            <td>RECOVERY</td>
+                            <td>14.28 MB</td>
+                            <td><a href="https://www.mediafire.com/file/owsr6g5zhsx977b/twrp-3.6.1_9-0-j5lte.img.tar/file" class="download-link" target="_blank">TWRP</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 4. SAMSUNG GALAXY J7 2015 (J7ELTE)
+                 ============================================== -->
+            <div id="menu-j7elte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Manuel notlarınızı buraya ekleyebilirsiniz.</li>
+                    </ul>
+                </div>
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Versiyon</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 5. SAMSUNG GALAXY J7 PRIME (ON7XELTE)
+                 ============================================== -->
+            <div id="menu-on7xelte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Manuel notlarınızı buraya ekleyebilirsiniz.</li>
+                    </ul>
+                </div>
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Versiyon</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- SÜRÜCÜ SCRIPTLER -->
+    <script>
+        function openDeviceMenu(codename, element) {
+            document.getElementById('welcomeScreen').style.display = 'none';
+
+            const tables = document.getElementsByClassName('rom-table-container');
+            for (let i = 0; i < tables.length; i++) {
+                tables[i].classList.remove('active');
+            }
+
+            const selectedTable = document.getElementById('menu-' + codename);
+            if (selectedTable) {
+                selectedTable.classList.add('active');
+            }
+
+            const items = document.getElementsByClassName('device-item');
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('active');
+            }
+            element.classList.add('active');
+        }
+
+        function filterDevices() {
+            const searchInput = document.getElementById('searchBox').value.toLowerCase();
+            const items = document.getElementsByClassName('device-item');
+
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                const text = item.innerText.toLowerCase();
+
+                if (text.includes(searchInput)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
