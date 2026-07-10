@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telefonhan ROM Archive</title>
-    <!-- İkonlar İçin FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -35,10 +34,17 @@
             align-items: center;
         }
 
-        .header-title h1 {
-            font-size: 1.3rem;
-            color: #0088ff; /* Link mavisi */
-            font-weight: bold;
+        /* Logo Yerleşimi ve Boyut Ayarları */
+        .header-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .site-logo {
+            height: 35px;        /* Header yüksekliğine uygun şık bir boyut */
+            width: auto;         /* Logonun oranını korur */
+            display: block;
+            object-fit: contain; /* Taşmayı engeller */
         }
 
         /* Üst Menü Arama Kutusu */
@@ -276,10 +282,11 @@
 </head>
 <body>
 
-    <!-- ÜST BAR -->
     <header class="archive-header">
         <div class="header-title">
-            <h1>TELEFONHAN ROM ARCHIVE</h1>
+            <a href="/">
+                <img src="logo.png" alt="Telefonhan Logo" class="site-logo">
+            </a>
         </div>
         <div class="search-container">
             <input type="text" id="searchBox" class="search-box" placeholder="Cihaz veya kod adı ara..." onkeyup="filterDevices()">
@@ -289,11 +296,9 @@
 
     <div class="main-wrapper">
         
-        <!-- SOL SIDEBAR (MARKALARA GÖRE KATEGORİLENDİRİLMİŞ CİHAZ AĞACI) -->
         <aside class="sidebar">
             <div class="sidebar-title">Brands</div>
             
-            <!-- SAMSUNG KATEGORİSİ -->
             <div class="brand-cluster">
                 <div class="brand-header" onclick="toggleBrand(this)">
                     <span>Samsung</span>
@@ -307,7 +312,6 @@
                 </div>
             </div>
 
-            <!-- XIAOMI KATEGORİSİ -->
             <div class="brand-cluster">
                 <div class="brand-header" onclick="toggleBrand(this)">
                     <span>Xiaomi / Redmi</span>
@@ -320,17 +324,12 @@
 
         </aside>
 
-        <!-- SAĞ İÇERİK ALANI -->
         <main class="content-area" id="contentArea">
             
-            <!-- Giriş Ekranı -->
             <div id="welcomeScreen" class="welcome-screen">
                 <p>Lütfen sol menüden bir marka ve cihaz seçin.</p>
             </div>
 
-            <!-- ==============================================
-                 1. REDMI NOTE 5 (WHYRED)
-                 ============================================== -->
             <div id="menu-whyred" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -379,9 +378,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 2. SAMSUNG GALAXY A10 (A10)
-                 ============================================== -->
             <div id="menu-a10" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -422,9 +418,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 3. SAMSUNG GALAXY J5 2015 (J5LTE)
-                 ============================================== -->
             <div id="menu-j5lte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -472,9 +465,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 4. SAMSUNG GALAXY J7 2015 (J7ELTE)
-                 ============================================== -->
             <div id="menu-j7elte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -506,9 +496,6 @@
                 </table>
             </div>
 
-            <!-- ==============================================
-                 5. SAMSUNG GALAXY J7 PRIME (ON7XELTE)
-                 ============================================== -->
             <div id="menu-on7xelte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
@@ -529,7 +516,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- ROM DOSYALARI -->
                         <tr>
                             <td>lineage-16.0-20181221-UNOFFICIAL-on7xelte.zip</td>
                             <td>Android 9 (Pie)</td>
@@ -554,7 +540,6 @@
                             <td>657.18 MB</td>
                             <td><a href="https://www.mediafire.com/file/ekblm0qf42aohza/lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 19.1</a></td>
                         </tr>
-                        <!-- RECOVERY DOSYALARI -->
                         <tr>
                             <td>TWRP-3.2.1-For-Galaxy-J7-Prime.tar</td>
                             <td>TWRP 3.2.1</td>
@@ -602,22 +587,10 @@
         </main>
     </div>
 
-    <!-- DRIVER SCRIPTLER -->
     <script>
         // Marka Başlıklarına Tıklayınca Açma/Kapatma İşlevi
         function toggleBrand(headerElement) {
             const cluster = headerElement.parentElement;
-            
-            // Eğer tıklandığında açık olan diğer markaları kapatmak istiyorsan bu bloğu aktif edebilirsin
-            /*
-            const allClusters = document.getElementsByClassName('brand-cluster');
-            for(let i=0; i<allClusters.length; i++) {
-                if(allClusters[i] !== cluster) {
-                    allClusters[i].classList.remove('active');
-                }
-            }
-            */
-
             cluster.classList.toggle('active');
         }
 
@@ -648,10 +621,9 @@
             const items = document.getElementsByClassName('device-item');
             const clusters = document.getElementsByClassName('brand-cluster');
 
-            // Eğer arama kutusu boşsa tüm markaları eski kapalı/açık haline getir
             if(searchInput === "") {
                 for(let i=0; i<clusters.length; i++) {
-                    clusters[i].classList.remove('active'); // İsteğe göre kapatabilir ya da açık bırakabilirsin
+                    clusters[i].classList.remove('active');
                     const currentItems = clusters[i].getElementsByClassName('device-item');
                     for(let j=0; j<currentItems.length; j++) {
                         currentItems[j].style.display = "block";
@@ -660,7 +632,6 @@
                 return;
             }
 
-            // Arama yapılıyorsa eşleşen cihazları göster ve ait olduğu markayı otomatik aç
             for (let i = 0; i < clusters.length; i++) {
                 let brandHasMatch = false;
                 const currentItems = clusters[i].getElementsByClassName('device-item');
