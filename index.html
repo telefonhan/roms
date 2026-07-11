@@ -371,7 +371,6 @@
 
     <!-- ÜST BAR -->
     <header class="archive-header">
-        <!-- Logo Alanı (Tıklanınca belirtilen adrese yönlendirir) -->
         <div class="header-title">
             <a href="https://telefonhan.github.io/home">
                 <img src="logo.png" alt="Telefonhan Logo" class="site-logo">
@@ -385,7 +384,7 @@
 
     <div class="main-wrapper">
         
-        <!-- SOL SIDEBAR (MARKALARA GÖRE KATEGORİLENDİRİLMİŞ CİHAZ AĞACI) -->
+        <!-- SOL SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-title">Brands</div>
             
@@ -396,6 +395,7 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('golden', this)">Galaxy S3 Mini (golden)</div>
                     <div class="device-item" onclick="openDeviceMenu('a10', this)">Galaxy A10 (a10)</div>
                     <div class="device-item" onclick="openDeviceMenu('j5lte', this)">Galaxy J5 2015 (j5lte)</div>
                     <div class="device-item" onclick="openDeviceMenu('j7elte', this)">Galaxy J7 2015 (j7elte)</div>
@@ -425,7 +425,107 @@
             </div>
 
             <!-- ==============================================
-                 1. REDMI NOTE 5 (WHYRED)
+                 SAMSUNG GALAXY S3 MINI (GOLDEN)
+                 ============================================== -->
+            <div id="menu-golden" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Nova ve Maclaw tarafından geliştirilen eski ama stabil klasik sürümleri içerir.</li>
+                        <li>i8190_XXAMG4_XXAMG4_rootfixed.zip dosyası root sorunları giderilmiş stock tabanlı bir yapıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lineage-15.1-20181030-UNOFFICIAL-golden.zip</td>
+                            <td>Android 8.1</td>
+                            <td>2018-10-30</td>
+                            <td style="color: #ff3333; font-weight: bold;">DENEYSEL!!!</td>
+                            <td>331.13 MB</td>
+                            <td><a href="https://www.mediafire.com/file/igcyq7vjbwjvm5b/lineage-15.1-20181030-UNOFFICIAL-golden.zip/file" class="download-link" target="_blank">LineageOS 15.1</a></td>
+                        </tr>
+                        <tr>
+                            <td>los14.1_golden.nova.20180109 (1).zip</td>
+                            <td>Android 7.1.2</td>
+                            <td>2018-01-09</td>
+                            <td>UNOFFICIAL</td>
+                            <td>285.51 MB</td>
+                            <td><a href="https://www.mediafire.com/file/y6d0080jq26daqb/los14.1_golden.nova.20180109_%25281%2529.zip/file" class="download-link" target="_blank">LineageOS 14.1</a></td>
+                        </tr>
+                        <tr>
+                            <td>cm-13.0-20161120-UNOFFICIAL-golden.zip</td>
+                            <td>Android 6.0.1</td>
+                            <td>2016-11-20</td>
+                            <td>UNOFFICIAL</td>
+                            <td>267.85 MB</td>
+                            <td><a href="https://www.mediafire.com/file/idtnh00ha57vvio/cm-13.0-20161120-UNOFFICIAL-golden.zip/file" class="download-link" target="_blank">CyanogenMod 13</a></td>
+                        </tr>
+                        <tr>
+                            <td>cm12.1_golden.nova.20160615.zip</td>
+                            <td>Android 5.1.1</td>
+                            <td>2016-06-15</td>
+                            <td>UNOFFICIAL</td>
+                            <td>223.88 MB</td>
+                            <td><a href="https://www.mediafire.com/file/66ubpuoa2am80ay/cm12.1_golden.nova.20160615.zip/file" class="download-link" target="_blank">CyanogenMod 12.1</a></td>
+                        </tr>
+                        <tr>
+                            <td>cm10.2_golden.nova.20141021.zip</td>
+                            <td>Android 4.3</td>
+                            <td>2014-10-21</td>
+                            <td>UNOFFICIAL</td>
+                            <td>191.45 MB</td>
+                            <td><a href="https://www.mediafire.com/file/4y8guilh9s1qpev/cm10.2_golden.nova.20141021.zip/file" class="download-link" target="_blank">CyanogenMod 10.2</a></td>
+                        </tr>
+                        <tr>
+                            <td>cm10.1_golden.nova.20140430.zip</td>
+                            <td>Android 4.2.2</td>
+                            <td>2014-04-30</td>
+                            <td>UNOFFICIAL</td>
+                            <td>164.48 MB</td>
+                            <td><a href="https://www.mediafire.com/file/hsv60ootzson2bj/cm10.1_golden.nova.20140430.zip/file" class="download-link" target="_blank">CyanogenMod 10.1</a></td>
+                        </tr>
+                        <tr>
+                            <td>cm10_golden.maclaw.20130727.zip</td>
+                            <td>Android 4.1.2</td>
+                            <td>2013-07-27</td>
+                            <td>UNOFFICIAL</td>
+                            <td>167.62 MB</td>
+                            <td><a href="https://www.mediafire.com/file/sapiu3kmgi38v3h/cm10_golden.maclaw.20130727.zip/file" class="download-link" target="_blank">CyanogenMod 10</a></td>
+                        </tr>
+                        <tr>
+                            <td>omni-4.4.4-20171009-2009-golden-HOMEMADE.zip</td>
+                            <td>Android 4.4.4</td>
+                            <td>2017-10-09</td>
+                            <td>HOMEMADE</td>
+                            <td>163.87 MB</td>
+                            <td><a href="https://www.mediafire.com/file/lki0629mxl7wlyy/omni-4.4.4-20171009-2009-golden-HOMEMADE.zip/file" class="download-link" target="_blank">OmniROM 4.4.4</a></td>
+                        </tr>
+                        <tr>
+                            <td>i8190_XXAMG4_XXAMG4_rootfixed.zip</td>
+                            <td>Android 4.1.2</td>
+                            <td>2026-07-11</td>
+                            <td>STOCK / ROOT</td>
+                            <td>576.61 MB</td>
+                            <td><a href="https://www.mediafire.com/file/0y9ctfg29teaafl/i8190_XXAMG4_XXAMG4_rootfixed.zip/file" class="download-link" target="_blank">Stock RootFixed</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 REDMI NOTE 5 (WHYRED)
                  ============================================== -->
             <div id="menu-whyred" class="rom-table-container">
                 <div class="device-notes">
@@ -434,7 +534,6 @@
                         <li>Flaşlamadan önce recovery sürümünüzün güncel olduğundan emin olun.</li>
                     </ul>
                 </div>
-
                 <table class="rom-table">
                     <thead>
                         <tr>
@@ -476,7 +575,7 @@
             </div>
 
             <!-- ==============================================
-                 2. SAMSUNG GALAXY A10 (A10)
+                 SAMSUNG GALAXY A10 (A10)
                  ============================================== -->
             <div id="menu-a10" class="rom-table-container">
                 <div class="device-notes">
@@ -485,7 +584,6 @@
                         <li>A10 için kararlı çalışan crDroid yapısı ve TWRP Recovery dosyasıdır.</li>
                     </ul>
                 </div>
-
                 <table class="rom-table">
                     <thead>
                         <tr>
@@ -519,7 +617,7 @@
             </div>
 
             <!-- ==============================================
-                 3. SAMSUNG GALAXY J5 2015 (J5LTE)
+                 SAMSUNG GALAXY J5 2015 (J5LTE)
                  ============================================== -->
             <div id="menu-j5lte" class="rom-table-container">
                 <div class="device-notes">
@@ -569,7 +667,7 @@
             </div>
 
             <!-- ==============================================
-                 4. SAMSUNG GALAXY J7 2015 (J7ELTE)
+                 SAMSUNG GALAXY J7 2015 (J7ELTE)
                  ============================================== -->
             <div id="menu-j7elte" class="rom-table-container">
                 <div class="device-notes">
@@ -603,14 +701,13 @@
             </div>
 
             <!-- ==============================================
-                 5. SAMSUNG GALAXY J7 PRIME (ON7XELTE)
+                 SAMSUNG GALAXY J7 PRIME (ON7XELTE)
                  ============================================== -->
             <div id="menu-on7xelte" class="rom-table-container">
                 <div class="device-notes">
                     <h4>Notlar</h4>
                     <ul>
                         <li>J7 Prime için test edilmiş LineageOS ROM ve TWRP Recovery yapılarıdır.</li>
-                        <li>Odin üzerinden yükleme yaparken (.tar), cihaz üzerinden yükleme yaparken (.img) formatlarını kullanın.</li>
                     </ul>
                 </div>
                 <table class="rom-table">
@@ -625,7 +722,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- ROM DOSYALARI -->
                         <tr>
                             <td>lineage-16.0-20181221-UNOFFICIAL-on7xelte.zip</td>
                             <td>Android 9 (Pie)</td>
@@ -650,7 +746,6 @@
                             <td>657.18 MB</td>
                             <td><a href="https://www.mediafire.com/file/ekblm0qf42aohza/lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 19.1</a></td>
                         </tr>
-                        <!-- RECOVERY DOSYALARI -->
                         <tr>
                             <td>TWRP-3.2.1-For-Galaxy-J7-Prime.tar</td>
                             <td>TWRP 3.2.1</td>
@@ -698,29 +793,25 @@
         </main>
     </div>
 
-    <!-- SÜRÜCÜ SCRIPTLER -->
+    <!-- SCRIPTLER -->
     <script>
         // YASAL UYARI POP-UP KONTROLÜ
         document.addEventListener("DOMContentLoaded", function() {
-            // Tarayıcı hafızasını kontrol et, onaylanmadıysa pop-up'ı göster
             if (!localStorage.getItem("rom_disclaimer_accepted")) {
                 document.getElementById("disclaimer-modal").style.display = "flex";
             }
         });
 
         function acceptDisclaimer() {
-            // Kullanıcı onayını hafızaya kaydet ve pop-up'ı kapat
             localStorage.setItem("rom_disclaimer_accepted", "true");
             document.getElementById("disclaimer-modal").style.display = "none";
         }
 
-        // Marka Başlıklarına Tıklayınca Açma/Kapatma İşlevi
         function toggleBrand(headerElement) {
             const cluster = headerElement.parentElement;
             cluster.classList.toggle('active');
         }
 
-        // Cihaz Menüsünü Sağ Tarafta Açma İşlevi
         function openDeviceMenu(codename, element) {
             document.getElementById('welcomeScreen').style.display = 'none';
 
@@ -741,7 +832,6 @@
             element.classList.add('active');
         }
 
-        // Arama Kutusu Filtreleme İşlevi
         function filterDevices() {
             const searchInput = document.getElementById('searchBox').value.toLowerCase();
             const items = document.getElementsByClassName('device-item');
@@ -782,6 +872,5 @@
             }
         }
     </script>
-
 </body>
 </html>
