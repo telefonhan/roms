@@ -279,6 +279,48 @@
             text-decoration: underline;
         }
 
+        /* ALT BİLGİ (FOOTER) ALANI */
+        .archive-footer {
+            background: #090909;
+            border-top: 1px solid #1a1a1a;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666666;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            color: #aaaaaa;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .social-link:hover {
+            color: #ffffff;
+        }
+
+        .social-link i {
+            font-size: 0.95rem;
+        }
+
+        .social-link.youtube:hover {
+            color: #ff0000;
+        }
+
+        .social-link.instagram:hover {
+            color: #e1306c;
+        }
+
         /* İnce Kaydırma Çubukları */
         ::-webkit-scrollbar {
             width: 6px;
@@ -360,6 +402,16 @@
             background: #ff3333;
             color: #ffffff;
         }
+
+        /* Responsive Footer Ayarı */
+        @media (max-width: 600px) {
+            .archive-footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -390,6 +442,7 @@
         </div>
     </header>
 
+    <!-- ANA GÖVDE -->
     <div class="main-wrapper">
         
         <!-- SOL SIDEBAR -->
@@ -793,10 +846,10 @@
                         <!-- YENİ EKLENEN ANDROID 14 DOSYASI -->
                         <tr>
                             <td>crDroidAndroid-14.0-20241117-a10-v10.10.zip</td>
-                            <td>Android 14</td>
-                            <td>2024-11-17</td>
+                            <td>Android 14[cite: 1]</td>
+                            <td>2024-11-17[cite: 1]</td>
                             <td>UNOFFICIAL</td>
-                            <td>998 MB</td>
+                            <td>998 MB[cite: 1]</td>
                             <td><a href="https://drive.google.com/file/d/1wu7-m8ebhdvC4JGqHOtFvcoIWheYFUfO/view?usp=drive_link" class="download-link" target="_blank">crDroid v10.10</a></td>
                         </tr>
                         <tr>
@@ -987,6 +1040,21 @@
 
         </main>
     </div>
+
+    <!-- ALT BİLGİ (FOOTER) KISMI -->
+    <footer class="archive-footer">
+        <div>
+            <span>Telefonhan © 2026 Tüm hakları saklıdır.</span>
+        </div>
+        <div class="footer-socials">
+            <a href="https://youtube.com/@Telefonhan" class="social-link youtube" target="_blank">
+                <i class="fa-brands fa-youtube"></i> @Telefonhan
+            </a>
+            <a href="https://instagram.com/telefonhan" class="social-link instagram" target="_blank">
+                <i class="fa-brands fa-instagram"></i> telefonhan
+            </a>
+        </div>
+    </footer>
 
     <!-- SCRIPTLER -->
     <script>
