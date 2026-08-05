@@ -178,7 +178,7 @@
             color: #0088ff;
         }
 
-        /* Markayaza Ait Cihaz Alt Menüsü */
+        /* Markaya Ait Cihaz Alt Menüsü */
         .brand-devices {
             max-height: 0;
             overflow: hidden;
@@ -517,6 +517,7 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('tools-7870', this)">Exynos 7870 Tools</div>
                     <div class="device-item" onclick="openDeviceMenu('tools-8890', this)">Exynos 8890 Tools</div>
                 </div>
             </div>
@@ -529,6 +530,50 @@
             <!-- Giriş Ekranı -->
             <div id="welcomeScreen" class="welcome-screen">
                 <p>Lütfen sol menüden bir marka, cihaz veya araç seçin.</p>
+            </div>
+
+            <!-- ==============================================
+                 EXYNOS 7870 TOOLS
+                 ============================================== -->
+            <div id="menu-tools-7870" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Exynos 7870 çipsetli cihazlar (J7 Prime, J7 2016, A3 2017 vb.) için bölümlendirme ve Vendor oluşturma araçlarıdır.</li>
+                        <li>GSI ROM kurulumlarından önce <strong>CreateVendor</strong> ve <strong>Repartition</strong> işlemlerinin uygulanması gerekebilir.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Açıklama</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exynos7870_CreateVendor_2.0.zip</td>
+                            <td>Exynos 7870 Vendor Bölümü Oluşturma Aracı v2.0</td>
+                            <td>2026-08-05</td>
+                            <td>ZIP / TOOL</td>
+                            <td>1.63 MB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                        <tr>
+                            <td>universal7870_repartitioner_V1.0.zip</td>
+                            <td>Exynos 7870 Partition Düzenleyici v1.0</td>
+                            <td>2026-08-05</td>
+                            <td>ZIP / TOOL</td>
+                            <td>553.23 KB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- ==============================================
@@ -1359,7 +1404,8 @@
                 <div class="device-notes">
                     <h4>Notlar</h4>
                     <ul>
-                        <li>J7 Prime için test edilmiş LineageOS ROM ve TWRP Recovery yapılarıdır.</li>
+                        <li>J7 Prime (Exynos 7870) için test edilmiş LineageOS, GSI ROM ve TWRP Recovery yapılarıdır.</li>
+                        <li>GSI ROM flaşlamadan önce Exynos 7870 Vendor oluşturma ve Partition araçlarını kullandığınızdan emin olun.</li>
                     </ul>
                 </div>
                 <table class="rom-table">
@@ -1374,6 +1420,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>Infinity-X-3.4_GSI_treble_arm64-ab_VANILLA-Official-20251108.img.7z</td>
+                            <td>Android 16 (GSI)</td>
+                            <td>2025-11-08</td>
+                            <td>GSI / OFFICIAL</td>
+                            <td>1.09 GB</td>
+                            <td><a href="#" class="download-link" target="_blank">Infinity-X GSI</a></td>
+                        </tr>
                         <tr>
                             <td>lineage-16.0-20181221-UNOFFICIAL-on7xelte.zip</td>
                             <td>Android 9 (Pie)</td>
