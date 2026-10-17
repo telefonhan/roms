@@ -10,36 +10,56 @@
       gtag('config', 'G-Y3HJDJXMEN');
     </script>
 
-    <!-- HATASIZ VE GÜVENLİ ANDROID SÜRÜM KONTROLÜ -->
+    <!-- ANDROID 8.0 ALTI CİHAZLARI ENGELLEYEN GÜVENLİ KONTROL -->
     <script>
         (function safeAndroidCheck() {
             var ua = navigator.userAgent;
-            // Sadece Android cihazları hedef al
             if (/Android/i.test(ua)) {
                 var match = ua.match(/Android\s+([0-9]+(?:\.[0-9]+)?)/i);
                 if (match && match[1]) {
                     var majorVersion = parseInt(match[1], 10);
-                    // Sadece Android 6.0 (Marshmallow) altındaki gerçek eski sürümleri engelle
-                    if (majorVersion < 6) {
+                    // Sınır Android 8 (Oreo) olduğu için 8'den küçükleri engelle
+                    if (majorVersion < 8) {
                         window.location.href = "block.html";
                     }
                 }
             }
-            // Windows, Linux, Mac, iOS ve Android 6.0+ (Redmi Note 11 dahil) tamamen güvende.
         })();
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- TARAYICI SEKME BAŞLIĞI -->
     <title>Telefonhan - ROM & Recovery Arşivi</title>
-    
+
+    <!-- GOOGLE VE TARAYICI SEKMESİ İÇİN KARE LOGO (FAVICON) -->
     <link rel="icon" type="image/png" href="logo.png" sizes="96x96">
     <link rel="shortcut icon" href="logo.png" type="image/png">
-    
+
+    <!-- ARAMA MOTORU (SEO) ETİKETLERİ -->
     <meta name="description" content="Telefonhan: Eski ve yeni Android cihazlar için en kararlı ROM, recovery ve root dosyalarının güvenli arşivi.">
     <meta name="keywords" content="telefonhan, rom, recovery, twrp, lineageos, samsung, xiaomi, redmi, android">
     <meta name="author" content="Telefonhan">
 
+    <!-- SOSYAL MEDYA / OPEN GRAPH ETİKETLERİ -->
+    <meta property="og:site_name" content="Telefonhan">
+    <meta property="og:title" content="Telefonhan - ROM & Recovery Arşivi">
+    <meta property="og:description" content="Android cihazlarınız için özel ROM ve yazılım arşivi.">
+    <meta property="og:url" content="https://telefonhan.github.io/roms">
+
+    <!-- GOOGLE MARKA YAPILANDIRILMIŞ VERİSİ (JSON-LD SCHEMA) -->
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Telefonhan",
+    "alternateName": ["Telefonhan ROM", "Telefonhan ROM Archive"],
+    "url": "https://telefonhan.github.io/roms"
+    }
+    </script>
+
+    <!-- İkonlar İçin FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Konfeti Efekti Kütüphanesi -->
@@ -68,6 +88,7 @@
             overflow: hidden;
         }
 
+        /* Üst Header Alanı */
         .archive-header {
             background: #090909;
             border-bottom: 1px solid #1a1a1a;
@@ -77,10 +98,9 @@
             align-items: center;
         }
 
-        .header-left {
+        .header-title {
             display: flex;
             align-items: center;
-            gap: 15px;
         }
 
         .site-logo {
@@ -125,6 +145,7 @@
             font-size: 0.85rem;
         }
 
+        /* Ayarlar Çark Butonu */
         .settings-btn {
             background: transparent;
             border: 1px solid #222222;
@@ -142,12 +163,14 @@
             transform: rotate(45deg);
         }
 
+        /* ANA EKRAN YERLEŞİMİ */
         .main-wrapper {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
+        /* SOL SIDEBAR */
         .sidebar {
             width: 260px;
             background: #000000;
@@ -184,7 +207,9 @@
             transition: background 0.2s;
         }
 
-        .brand-header:hover { background: #0a0a0a; }
+        .brand-header:hover {
+            background: #0a0a0a;
+        }
 
         .brand-header i {
             font-size: 0.8rem;
@@ -204,7 +229,9 @@
             background: #020202;
         }
 
-        .brand-cluster.active .brand-devices { max-height: 850px; }
+        .brand-cluster.active .brand-devices {
+            max-height: 850px;
+        }
 
         .device-item {
             padding: 10px 25px;
@@ -231,6 +258,7 @@
             padding-left: 22px;
         }
 
+        /* SAĞ ANA ALAN */
         .content-area {
             flex: 1;
             overflow-y: auto;
@@ -247,8 +275,13 @@
             text-align: center;
         }
 
-        .rom-table-container { display: none; }
-        .rom-table-container.active { display: block; }
+        .rom-table-container {
+            display: none;
+        }
+
+        .rom-table-container.active {
+            display: block;
+        }
 
         .device-notes {
             background: #050b14;
@@ -295,15 +328,20 @@
             color: #aaaaaa;
         }
 
-        .rom-table tr:hover td { background: #050505; }
+        .rom-table tr:hover td {
+            background: #050505;
+        }
 
         .download-link {
             color: var(--accent-color);
             text-decoration: none;
         }
 
-        .download-link:hover { text-decoration: underline; }
+        .download-link:hover {
+            text-decoration: underline;
+        }
 
+        /* ALT BİLGİ (FOOTER) */
         .archive-footer {
             background: #090909;
             border-top: 1px solid #1a1a1a;
@@ -333,7 +371,10 @@
             user-select: none;
         }
 
-        .footer-socials { display: flex; gap: 15px; }
+        .footer-socials {
+            display: flex;
+            gap: 15px;
+        }
 
         .social-link {
             color: #aaaaaa;
@@ -341,11 +382,16 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .social-link:hover {
+            color: #ffffff;
         }
 
         .social-link.youtube:hover { color: #ff0000; }
-        .social-link.instagram:hover { color: #e1306c; }
 
+        /* MODALLAR */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -423,7 +469,7 @@
             color: #ffffff;
         }
 
-        /* BREAKOUT OYUN MODALI */
+        /* BREAKOUT EASTER EGG OYUN EKRANI */
         #easter-egg-container {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -470,18 +516,22 @@
             border-radius: 20px;
             cursor: pointer;
         }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 3px; }
     </style>
 </head>
 <body>
 
-    <!-- YASAL UYARI MODALI -->
+    <!-- YASAL UYARI POP-UP KUTUSU -->
     <div id="disclaimer-modal" class="modal-overlay">
         <div class="modal-content" style="border-color: #ff3333; text-align: center;">
             <div style="font-size: 2.5rem; color: #ff3333; margin-bottom: 15px;">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
             <h2 style="margin-bottom: 15px;">Önemli Uyarı</h2>
-            <p style="font-size: 0.88rem; color: #aaaaaa; line-height: 1.6; margin-bottom: 15px;">Bu arşivde yer alan ROM ve Recovery dosyalarının geliştirilmesi/yapımı şahsıma ait değildir.</p>
+            <p style="font-size: 0.88rem; color: #aaaaaa; line-height: 1.6; margin-bottom: 15px;">Bu arşivde yer alan ROM ve Recovery dosyalarının geliştirilmesi/yapımı şahsıma ait değildir. Dosyalar açık kaynaklı topluluklar ve bağımsız geliştiriciler tarafından üretilmiştir.</p>
             <button onclick="acceptDisclaimer()" style="background: #ffffff; color: #000000; border: none; padding: 12px 25px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%;">Anladım, Devam Et</button>
         </div>
     </div>
@@ -501,6 +551,11 @@
                     <div class="color-dot" style="background: #ff1744;" onclick="changeAccent('#ff1744', this)"></div>
                     <div class="color-dot" style="background: #d500f9;" onclick="changeAccent('#d500f9', this)"></div>
                     <div class="color-dot" style="background: #ffab00;" onclick="changeAccent('#ffab00', this)"></div>
+                    <div class="color-dot" style="background: #00e5ff;" onclick="changeAccent('#00e5ff', this)"></div>
+                    <div class="color-dot" style="background: #ff4081;" onclick="changeAccent('#ff4081', this)"></div>
+                    <div class="color-dot" style="background: #76ff03;" onclick="changeAccent('#76ff03', this)"></div>
+                    <div class="color-dot" style="background: #ff6d00;" onclick="changeAccent('#ff6d00', this)"></div>
+                    <div class="color-dot" style="background: #ffffff;" onclick="changeAccent('#ffffff', this)"></div>
                 </div>
             </div>
             <div class="setting-section">
@@ -524,9 +579,9 @@
         </div>
     </div>
 
-    <!-- HEADER -->
+    <!-- ÜST BAR -->
     <header class="archive-header">
-        <div class="header-left">
+        <div class="header-title">
             <a href="https://telefonhan.github.io/roms">
                 <img src="logo.png" alt="Telefonhan Logo" class="site-logo">
             </a>
@@ -536,54 +591,413 @@
                 <input type="text" id="searchBox" class="search-box" placeholder="Cihaz veya kod adı ara..." onkeyup="filterDevices()">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <button class="settings-btn" onclick="openSettings()"><i class="fa-solid fa-gear"></i></button>
+            <button class="settings-btn" onclick="openSettings()" title="Ayarlar">
+                <i class="fa-solid fa-gear"></i>
+            </button>
         </div>
     </header>
 
-    <!-- MAIN -->
+    <!-- ANA GÖVDE -->
     <div class="main-wrapper">
+        <!-- SOL SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-title">Brands</div>
+
+            <!-- SAMSUNG KATEGORİSİ -->
             <div class="brand-cluster">
                 <div class="brand-header" onclick="toggleBrand(this)">
                     <span>Samsung</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <div class="brand-devices">
-                    <div class="device-item" onclick="openDeviceMenu('i9300', this)">Galaxy S3 (i9300)</div>
+                    <div class="device-item" onclick="openDeviceMenu('n7100', this)">Galaxy Note II (N7100)</div>
+                    <div class="device-item" onclick="openDeviceMenu('i9300', this)">Galaxy S3 (i9300 / midas)</div>
                     <div class="device-item" onclick="openDeviceMenu('golden', this)">Galaxy S3 Mini (golden)</div>
+                    <div class="device-item" onclick="openDeviceMenu('goldenve', this)">Galaxy S3 Mini Value Edition (goldenve)</div>
+                    <div class="device-item" onclick="openDeviceMenu('serrano3gxx', this)">Galaxy S4 Mini (serrano3gxx)</div>
+                    <div class="device-item" onclick="openDeviceMenu('herolte', this)">Galaxy S7 (herolte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('hero2lte', this)">Galaxy S7 Edge (hero2lte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('gracerlte', this)">Galaxy Note 7 (gracerlte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('gracelte', this)">Galaxy Note FE (gracelte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('a10', this)">Galaxy A10 (a10)</div>
+                    <div class="device-item" onclick="openDeviceMenu('j5lte', this)">Galaxy J5 2015 (j5lte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('j7elte', this)">Galaxy J7 2015 (j7elte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('on7xelte', this)">Galaxy J7 Prime (on7xelte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('i9100', this)">Galaxy S2 (i9100)</div>
+                    <div class="device-item" onclick="openDeviceMenu('i9500', this)">Galaxy S4 (ja3g) (i9500)</div>
+                    <div class="device-item" onclick="openDeviceMenu('klte', this)">Galaxy S5 LTE (klte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('starlte', this)">Galaxy S9 (starlte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('x1s', this)">Galaxy S20 (x1s)</div>
+                    <div class="device-item" onclick="openDeviceMenu('hlte', this)">Galaxy Note 3 (hlte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('noblelte', this)">Galaxy Note 5 (noblelte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('crownlte', this)">Galaxy Note 9 (crownlte)</div>
+                </div>
+            </div>
+
+            <!-- XIAOMI KATEGORİSİ -->
+            <div class="brand-cluster">
+                <div class="brand-header" onclick="toggleBrand(this)">
+                    <span>Xiaomi / Redmi</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('whyred', this)">Redmi Note 5 (whyred)</div>
+                    <div class="device-item" onclick="openDeviceMenu('beryllium', this)">Pocophone F1 (beryllium)</div>
+                    <div class="device-item" onclick="openDeviceMenu('vayu', this)">POCO X3 Pro (vayu)</div>
+                </div>
+            </div>
+
+            <div class="sidebar-title">Tools & Utilities</div>
+
+            <!-- TOOLS KATEGORİSİ -->
+            <div class="brand-cluster">
+                <div class="brand-header" onclick="toggleBrand(this)">
+                    <span>Tools / Araçlar</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('tools-7870', this)">Exynos 7870 Tools</div>
+                    <div class="device-item" onclick="openDeviceMenu('tools-8890', this)">Exynos 8890 Tools</div>
                 </div>
             </div>
         </aside>
 
-        <main class="content-area">
+        <!-- SAĞ İÇERİK ALANI -->
+        <main class="content-area" id="contentArea">
             <div id="welcomeScreen" class="welcome-screen">
-                <p>Lütfen sol menüden bir marka veya cihaz seçin.</p>
+                <p>Lütfen sol menüden bir marka, cihaz veya araç seçin.</p>
             </div>
-            <div id="menu-i9300" class="rom-table-container">
+
+            <!-- EXYNOS 7870 TOOLS -->
+            <div id="menu-tools-7870" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Exynos 7870 çipsetli cihazlar için bölümlendirme ve Vendor araçlarıdır.</li>
+                    </ul>
+                </div>
                 <table class="rom-table">
-                    <thead><tr><th>Dosya</th><th>Android</th><th>İndir</th></tr></thead>
-                    <tbody><tr><td>LineageOS 18.1</td><td>Android 11</td><td><a href="#" class="download-link">İndir</a></td></tr></tbody>
+                    <thead><tr><th>Dosya</th><th>Açıklama</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>Exynos7870_CreateVendor_2.0.zip</td><td>Exynos 7870 Vendor Bölümü Oluşturma Aracı v2.0</td><td>2026-08-05</td><td>ZIP / TOOL</td><td>1.63 MB</td><td><a href="#" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>universal7870_repartitioner_V1.0.zip</td><td>Exynos 7870 Partition Düzenleyici v1.0</td><td>2026-08-05</td><td>ZIP / TOOL</td><td>553.23 KB</td><td><a href="#" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- EXYNOS 8890 TOOLS -->
+            <div id="menu-tools-8890" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Exynos 8890 çipsetli cihazlar (S7, S7 Edge, Note 7, Note FE) için yardımcı araçlar.</li>
+                    </ul>
+                </div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Açıklama</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>Universal Cleaner 8890.zip</td><td>Exynos 8890 Temizleme Aracı</td><td>-</td><td>ZIP / SCRIPT</td><td>2.02 MB</td><td><a href="https://www.mediafire.com/file/7hhjajkzzsbi6v5/Universal_Cleaner_8890.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>Universal_Repartitioner_8890_V2.1.zip</td><td>Exynos 8890 Partition Düzenleyici v2.1</td><td>-</td><td>ZIP / TOOL</td><td>2.51 MB</td><td><a href="https://www.mediafire.com/file/k5l6beus4n4mv3g/Universal_Repartitioner_8890_V2.1.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY NOTE II (N7100) -->
+            <div id="menu-n7100" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy Note II (GT-N7100) modeline ait arşiv yapısıdır.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-18.1-20220420-HTML6405-n7100.zip</td><td>Android 11</td><td>2022-04-20</td><td>UNOFFICIAL</td><td>474.01 MB</td><td><a href="https://www.mediafire.com/file/mq6yzxe1vowkjcl/lineage-18.1-20220420-HTML6405-n7100.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>19.1-20220615-HTML6405-n7100.zip</td><td>Android 12L</td><td>2022-06-15</td><td>UNOFFICIAL</td><td>518.98 MB</td><td><a href="https://www.mediafire.com/file/w68gav1n0iukmiv/19.1-20220615-HTML6405-n7100.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>20.0-20230126-HTML6405-n7100.zip</td><td>Android 13</td><td>2023-01-26</td><td>UNOFFICIAL</td><td>533.33 MB</td><td><a href="https://www.mediafire.com/file/giq03jgpwfnkphe/20.0-20230126-HTML6405-n7100.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S3 (I9300) -->
+            <div id="menu-i9300" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>GT-I9300 (Exynos) modeline ait geniş arşiv yapısıdır.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>20.0-20230306-HTML6405-i9300.zip</td><td>Android 13</td><td>2023-03-06</td><td>UNOFFICIAL</td><td>530.40 MB</td><td><a href="https://drive.google.com/file/d/1HlsFerBbmaPALV6vTce_zcNJkvDyf-RJ/view?usp=drive_link" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>21.0-20241029-HTML6405-i9300.zip</td><td>Android 14</td><td>2024-10-29</td><td>UNOFFICIAL</td><td>643.80 MB</td><td><a href="https://drive.google.com/file/d/110Dq3tzeCPEqM8ZAWN50MATkJtXYNfVI/view?usp=drive_link" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>lineage-18.1-20220420-HTML6405-i9300.zip</td><td>Android 11</td><td>2022-04-20</td><td>UNOFFICIAL</td><td>472.90 MB</td><td><a href="https://drive.google.com/file/d/1KenrPtv2jA3Ojs4ZTj-2PDAdFxAJ6seI/view?usp=drive_link" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S3 MINI (GOLDEN) -->
+            <div id="menu-golden" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Nova ve Maclaw tarafından geliştirilen eski ama stabil klasik sürümler.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-15.1-20181030-UNOFFICIAL-golden.zip</td><td>Android 8.1</td><td>2018-10-30</td><td>DENEYSEL</td><td>331.13 MB</td><td><a href="https://www.mediafire.com/file/igcyq7vjbwjvm5b/lineage-15.1-20181030-UNOFFICIAL-golden.zip/file" class="download-link" target="_blank">LineageOS 15.1</a></td></tr>
+                        <tr><td>cm-13.0-20161120-UNOFFICIAL-golden.zip</td><td>Android 6.0.1</td><td>2016-11-20</td><td>UNOFFICIAL</td><td>267.85 MB</td><td><a href="https://www.mediafire.com/file/idtnh00ha57vvio/cm-13.0-20161120-UNOFFICIAL-golden.zip/file" class="download-link" target="_blank">CyanogenMod 13</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S3 MINI VE (GOLDENVE) -->
+            <div id="menu-goldenve" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>UYARI: Sadece GT-I8200 (Value Edition) içindir.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>cm-11-20200310-UNOFFICIAL-goldenve3g.zip</td><td>Android 4.4.4</td><td>2020-03-10</td><td>UNOFFICIAL</td><td>206.20 MB</td><td><a href="https://drive.google.com/file/d/10EDEz6KF7gV3VtPALwj-qfZlW8smNcWo/view?usp=sharing" class="download-link" target="_blank">CyanogenMod 11</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S4 MINI (SERRANO3GXX) -->
+            <div id="menu-serrano3gxx" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S4 Mini Dual SIM (GT-I9192) modeline aittir.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-18.1-20230419-UNOFFICIAL-serrano3gxx.zip</td><td>Android 11</td><td>2023-04-19</td><td>UNOFFICIAL</td><td>453.52 MB</td><td><a href="https://www.mediafire.com/file/xlk1a08s0sek9rl/lineage-18.1-20230419-UNOFFICIAL-serrano3gxx.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S7 (HEROLTE) -->
+            <div id="menu-herolte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S7 (SM-G930F/FD) modeline aittir.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>Evolution X Android 16 Project Treble herolte, hero2lte, gracelte, gracerlte.zip</td><td>Android 16</td><td>-</td><td>TREBLE</td><td>1.87 GB</td><td><a href="https://www.mediafire.com/file/3onlz204oz45ga6/Evolution_X_Android_16_Project_Treble_herolte%252C_hero2lte%252C_gracelte%252C_gracerlte.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S7 EDGE (HERO2LTE) -->
+            <div id="menu-hero2lte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S7 Edge (SM-G935F/FD) modeline aittir.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-23.2Hero2lte.zip</td><td>Android 16</td><td>-</td><td>UNOFFICIAL</td><td>950.23 MB</td><td><a href="https://www.mediafire.com/file/k8ehev877p6xjfg/lineage-23.2Hero2lte.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                        <tr><td>TWRP-3.7.0_9-hero2lte-20231231.tar</td><td>TWRP 3.7.0</td><td>2023-12-31</td><td>RECOVERY</td><td>43.00 MB</td><td><a href="https://www.mediafire.com/file/h7k36jmn1ayp5to/TWRP-3.7.0_9-hero2lte-20231231.tar/file" class="download-link" target="_blank">TWRP (Odin)</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY NOTE 7 (GRACERLTE) -->
+            <div id="menu-gracerlte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy Note 7 modeline aittir.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>Evolution X Android 16 Project Treble herolte, hero2lte, gracelte, gracerlte.zip</td><td>Android 16</td><td>-</td><td>TREBLE</td><td>1.87 GB</td><td><a href="https://www.mediafire.com/file/3onlz204oz45ga6/Evolution_X_Android_16_Project_Treble_herolte%252C_hero2lte%252C_gracelte%252C_gracerlte.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY NOTE FE (GRACELTE) -->
+            <div id="menu-gracelte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy Note Fan Edition modeline aittir.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>Evolution X Android 16 Project Treble herolte, hero2lte, gracelte, gracerlte.zip</td><td>Android 16</td><td>-</td><td>TREBLE</td><td>1.87 GB</td><td><a href="https://www.mediafire.com/file/3onlz204oz45ga6/Evolution_X_Android_16_Project_Treble_herolte%252C_hero2lte%252C_gracelte%252C_gracerlte.zip/file" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY A10 (A10) -->
+            <div id="menu-a10" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy A10 için crDroid ve TWRP dosyaları.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>crDroidAndroid-14.0-20241117-a10-v10.10.zip</td><td>Android 14</td><td>2024-11-17</td><td>UNOFFICIAL</td><td>998 MB</td><td><a href="https://drive.google.com/file/d/1wu7-m8ebhdvC4JGqHOtFvcoIWheYFUfO/view?usp=drive_link" class="download-link" target="_blank">crDroid v10.10</a></td></tr>
+                        <tr><td>twrp-3.7.0_11-0-a10.img.tar</td><td>TWRP 3.7.0</td><td>-</td><td>RECOVERY</td><td>40.43 MB</td><td><a href="https://www.mediafire.com/file/86g91tqisdtytwq/twrp-3.7.0_11-0-a10.img.tar/file" class="download-link" target="_blank">TWRP</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY J5 2015 (J5LTE) -->
+            <div id="menu-j5lte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>J5 2015 test edilmiş LineageOS ve TWRP yapıları.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-20.0-20220928-UNOFFICIAL-j5lte.zip</td><td>Android 13</td><td>2022-09-28</td><td>UNOFFICIAL</td><td>684.12 MB</td><td><a href="https://www.mediafire.com/file/tjr8zzz2lx2ohs6/lineage-20.0-20220928-UNOFFICIAL-j5lte.zip/file" class="download-link" target="_blank">LineageOS 20.0</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY J7 2015 (J7ELTE) -->
+            <div id="menu-j7elte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>J7 2015 güncel yapıları.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-19.1-20220328-UNOFFICIAL-j7elte.zip</td><td>Android 12L</td><td>2022-03-28</td><td>UNOFFICIAL</td><td>540.18 MB</td><td><a href="https://www.mediafire.com/file/ctk6e7bj8wnvd5i/lineage-19.1-20220328-UNOFFICIAL-j7elte.zip/file" class="download-link" target="_blank">LineageOS 19.1</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY J7 PRIME (ON7XELTE) -->
+            <div id="menu-on7xelte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>J7 Prime (Exynos 7870) LineageOS ve GSI yapıları.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip</td><td>Android 12L</td><td>2026-02-15</td><td>UNOFFICIAL</td><td>657.18 MB</td><td><a href="https://www.mediafire.com/file/ekblm0qf42aohza/lineage-19.1-20260215-UNOFFICIAL-on7xelte.zip/file" class="download-link" target="_blank">LineageOS 19.1</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S2 (I9100) -->
+            <div id="menu-i9100" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S2 (GT-I9100) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 23.2</td><td>Android 16</td><td>-</td><td>UNOFFICIAL</td><td><a href="https://drive.google.com/file/d/1PD06ycSz2jnkzD9ZRzSeChBc_Vex00Cg/view" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S4 (I9500) -->
+            <div id="menu-i9500" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S4 (GT-I9500) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 17.1</td><td>Android 10</td><td>2026-03-13</td><td>UNOFFICIAL</td><td><a href="https://mega.nz/file/aMMHiJhK#rzpAkn4VF6XdsnL7X8xLrxHhEKzPceBU-RIVqb69FdQ" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S5 (KLTE) -->
+            <div id="menu-klte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S5 LTE (klte) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 21</td><td>Android 14</td><td>2024-04-23</td><td>UNOFFICIAL</td><td><a href="https://sourceforge.net/projects/khalvat/files/Android%2014/klte/lineage-21.0-20240423-UNOFFICIAL-klte.zip/download" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S9 (STARLTE) -->
+            <div id="menu-starlte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S9 Exynos (starlte) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 23</td><td>Android 16</td><td>2026-02-10</td><td>UNOFFICIAL</td><td><a href="https://images.krazey.de/23.0/lineage-23.0-20260210-unofficial-starlte.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY S20 (X1S) -->
+            <div id="menu-x1s" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy S20 Exynos (x1s) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 23.2</td><td>Android 16</td><td>2026-02-20</td><td>OFFICIAL</td><td><a href="https://mirrorbits.lineageos.org/full/x1s/20260220/lineage-23.2-20260220-nightly-x1s-signed.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY NOTE 3 (HLTE) -->
+            <div id="menu-hlte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy Note 3 Snapdragon (hlte) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 21</td><td>Android 14</td><td>2025-04-06</td><td>UNOFFICIAL</td><td><a href="https://ota.html6405.com/hlte/LOS21/21.0-20250406-HTML6405-hlte.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY NOTE 5 (NOBLELTE) -->
+            <div id="menu-noblelte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy Note 5 Exynos (noblelte) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 21</td><td>Android 14</td><td>2025-12-04</td><td>UNOFFICIAL</td><td><a href="https://github.com/fakemanoan/LineageOS-Releases/releases/download/A14pre-08122025/lineage-21.0-20251208-UNOFFICIAL-noblelte.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GALAXY NOTE 9 (CROWNLTE) -->
+            <div id="menu-crownlte" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Galaxy Note 9 Exynos (crownlte) ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 23</td><td>Android 16</td><td>2026-01-05</td><td>UNOFFICIAL</td><td><a href="https://images.krazey.de/23.0/lineage-23.0-20260105-unofficial-crownlte.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- REDMI NOTE 5 (WHYRED) -->
+            <div id="menu-whyred" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Redmi Note 5 (whyred) güncel LineageOS yapıları.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>Boyut</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>lineage-23.2-20260209-UNOFFICIAL-whyred.zip</td><td>Android 16</td><td>2026-02-09</td><td>UNOFFICIAL</td><td>1.10 GB</td><td><a href="https://www.mediafire.com/file/z9c4kmtq0ij2csa/lineage-23.2-20260209-UNOFFICIAL-whyred.zip/file" class="download-link" target="_blank">LineageOS 23.2</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- POCOPHONE F1 (BERYLLIUM) -->
+            <div id="menu-beryllium" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>Pocophone F1 ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 22.2</td><td>Android 15</td><td>2026-03-17</td><td>OFFICIAL</td><td><a href="https://b4.timschumi.net/lineage-archive/lineage-22.2-20260317-nightly-beryllium-signed.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- POCO X3 PRO (VAYU) -->
+            <div id="menu-vayu" class="rom-table-container">
+                <div class="device-notes"><h4>Notlar</h4><ul><li>POCO X3 Pro ROM arşivi.</li></ul></div>
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android Sürümü</th><th>Tarih</th><th>Tip</th><th>İndir</th></tr></thead>
+                    <tbody>
+                        <tr><td>LineageOS 20</td><td>Android 13</td><td>2024-12-29</td><td>OFFICIAL</td><td><a href="https://b4.timschumi.net/lineage-archive/lineage-20.0-20241229-nightly-vayu-signed.zip" class="download-link" target="_blank">İndir</a></td></tr>
+                    </tbody>
                 </table>
             </div>
         </main>
     </div>
 
-    <!-- FOOTER -->
+    <!-- ALT BİLGİ (FOOTER) KISMI -->
     <footer class="archive-footer">
         <div class="footer-left">
-            <span>Telefonhan © 2026</span>
+            <span>Telefonhan © 2026 Tüm hakları saklıdır.</span>
+            <!-- EASTER EGG TETİKLEYİCİSİ -->
             <span class="version-tag" onclick="handleVersionClick()">v2.9.420</span>
         </div>
         <div class="footer-socials">
-            <a href="https://youtube.com/@Telefonhan" class="social-link youtube"><i class="fa-brands fa-youtube"></i> @Telefonhan</a>
+            <a href="https://youtube.com/@Telefonhan" class="social-link youtube" target="_blank">
+                <i class="fa-brands fa-youtube"></i> @Telefonhan
+            </a>
         </div>
     </footer>
 
+    <!-- SCRIPTLER VE AYAR/OYUN KODLARI -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             if (!localStorage.getItem("rom_disclaimer_accepted")) {
                 document.getElementById("disclaimer-modal").style.display = "flex";
+            }
+            const savedColor = localStorage.getItem("telefonhan_accent");
+            if(savedColor) {
+                document.documentElement.style.setProperty('--accent-color', savedColor);
             }
         });
 
@@ -597,6 +1011,7 @@
 
         function changeAccent(color, el) {
             document.documentElement.style.setProperty('--accent-color', color);
+            localStorage.setItem("telefonhan_accent", color);
             document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
             el.classList.add('active');
         }
@@ -607,11 +1022,49 @@
             el.classList.add('active');
         }
 
-        function toggleBrand(el) { el.parentElement.classList.toggle('active'); }
+        function toggleBrand(headerElement) {
+            headerElement.parentElement.classList.toggle('active');
+        }
+
         function openDeviceMenu(codename, element) {
             document.getElementById('welcomeScreen').style.display = 'none';
-            document.querySelectorAll('.rom-table-container').forEach(t => t.classList.remove('active'));
-            document.getElementById('menu-' + codename).classList.add('active');
+            const tables = document.getElementsByClassName('rom-table-container');
+            for (let i = 0; i < tables.length; i++) {
+                tables[i].classList.remove('active');
+            }
+            const selectedTable = document.getElementById('menu-' + codename);
+            if (selectedTable) selectedTable.classList.add('active');
+
+            const items = document.getElementsByClassName('device-item');
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('active');
+            }
+            element.classList.add('active');
+        }
+
+        function filterDevices() {
+            const searchInput = document.getElementById('searchBox').value.toLowerCase();
+            const clusters = document.getElementsByClassName('brand-cluster');
+
+            for (let i = 0; i < clusters.length; i++) {
+                let brandHasMatch = false;
+                const currentItems = clusters[i].getElementsByClassName('device-item');
+
+                for (let j = 0; j < currentItems.length; j++) {
+                    const text = currentItems[j].innerText.toLowerCase();
+                    if (text.includes(searchInput)) {
+                        currentItems[j].style.display = "block";
+                        brandHasMatch = true;
+                    } else {
+                        currentItems[j].style.display = "none";
+                    }
+                }
+                if (brandHasMatch || searchInput === "") {
+                    if(searchInput !== "") clusters[i].classList.add('active');
+                } else {
+                    clusters[i].classList.remove('active');
+                }
+            }
         }
 
         // ==========================================
@@ -719,11 +1172,7 @@
                 }
 
                 if (activeBricks === 0) {
-                    confetti({
-                        particleCount: 100,
-                        spread: 70,
-                        origin: { y: 0.6 }
-                    });
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
                     currentLevelIndex++;
                     if (currentLevelIndex < androidLevels.length) {
@@ -745,9 +1194,10 @@
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 ctx.font = "14px Arial";
-                ctx.fillStyle = "#0088ff";
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
                 ctx.fillText("Android Level: " + androidLevels[currentLevelIndex], 10, 20);
 
+                let activeAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color');
                 for (let c = 0; c < columnCount; c++) {
                     for (let r = 0; r < rowCount; r++) {
                         if (bricks[c][r].status === 1) {
@@ -755,7 +1205,7 @@
                             let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
                             bricks[c][r].x = brickX;
                             bricks[c][r].y = brickY;
-                            ctx.fillStyle = "#0088ff";
+                            ctx.fillStyle = activeAccent;
                             ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
                         }
                     }
