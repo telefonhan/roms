@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3HJDJXMEN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y3HJDJXMEN');
+    </script>
+
+    <!-- HATASIZ VE GÜVENLİ ANDROID SÜRÜM KONTROLÜ -->
+    <script>
+        (function safeAndroidCheck() {
+            var ua = navigator.userAgent;
+            // Sadece Android cihazları hedef al
+            if (/Android/i.test(ua)) {
+                var match = ua.match(/Android\s+([0-9]+(?:\.[0-9]+)?)/i);
+                if (match && match[1]) {
+                    var majorVersion = parseInt(match[1], 10);
+                    // Sadece Android 6.0 (Marshmallow) altındaki gerçek eski sürümleri engelle
+                    if (majorVersion < 6) {
+                        window.location.href = "block.html";
+                    }
+                }
+            }
+            // Windows, Linux, Mac, iOS ve Android 6.0+ (Redmi Note 11 dahil) tamamen güvende.
+        })();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telefonhan - Bilgilendirme</title>
-    <link rel="icon" type="image/png" href="logo.png">
+    <title>Telefonhan - ROM & Recovery Arşivi</title>
+    
+    <link rel="icon" type="image/png" href="logo.png" sizes="96x96">
+    <link rel="shortcut icon" href="logo.png" type="image/png">
+    
+    <meta name="description" content="Telefonhan: Eski ve yeni Android cihazlar için en kararlı ROM, recovery ve root dosyalarının güvenli arşivi.">
+    <meta name="keywords" content="telefonhan, rom, recovery, twrp, lineageos, samsung, xiaomi, redmi, android">
+    <meta name="author" content="Telefonhan">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Konfeti Efekti Kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
+        :root {
+            --accent-color: #0088ff;
+            --accent-hover: #0066cc;
+            --table-padding: 12px 15px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,79 +63,744 @@
             background-color: #000000;
             color: #ffffff;
             display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .archive-header {
+            background: #090909;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .site-logo {
+            height: 35px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            position: relative;
+            width: 250px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 8px 12px 8px 35px;
+            font-size: 0.85rem;
+            background-color: #000000;
+            border: 1px solid #222222;
+            border-radius: 4px;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-color);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #444444;
+            font-size: 0.85rem;
+        }
+
+        .settings-btn {
+            background: transparent;
+            border: 1px solid #222222;
+            color: #aaaaaa;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .settings-btn:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: rotate(45deg);
+        }
+
+        .main-wrapper {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #000000;
+            border-right: 1px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            color: #555555;
+            padding: 12px 15px 5px 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-cluster {
+            border-bottom: 1px solid #090909;
+        }
+
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            background: #050505;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .brand-header:hover { background: #0a0a0a; }
+
+        .brand-header i {
+            font-size: 0.8rem;
+            color: #555555;
+            transition: transform 0.2s;
+        }
+
+        .brand-cluster.active .brand-header i {
+            transform: rotate(180deg);
+            color: var(--accent-color);
+        }
+
+        .brand-devices {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+            background: #020202;
+        }
+
+        .brand-cluster.active .brand-devices { max-height: 850px; }
+
+        .device-item {
+            padding: 10px 25px;
+            font-size: 0.85rem;
+            color: var(--accent-color); 
+            cursor: pointer;
+            user-select: none;
+            white-space: normal;
+            word-wrap: break-word;
+            border-bottom: 1px solid #050505;
+            line-height: 1.3;
+        }
+
+        .device-item:hover {
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        .device-item.active {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-weight: bold;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 22px;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            background: #000000;
+        }
+
+        .welcome-screen {
+            display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            padding: 20px;
+            height: 100%;
+            color: #333333;
+            font-size: 0.85rem;
             text-align: center;
         }
 
-        .block-card {
+        .rom-table-container { display: none; }
+        .rom-table-container.active { display: block; }
+
+        .device-notes {
+            background: #050b14;
+            border-left: 3px solid var(--accent-color);
+            padding: 12px 18px;
+            margin: 15px;
+            border-radius: 2px;
+        }
+
+        .device-notes h4 {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .device-notes ul {
+            list-style-type: disc;
+            margin-left: 15px;
+            font-size: 0.8rem;
+            color: #aaaaaa;
+            line-height: 1.5;
+        }
+
+        .rom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .rom-table th {
+            background: #090909;
+            color: #666666;
+            font-size: 0.8rem;
+            font-weight: normal;
+            padding: 10px 15px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .rom-table td {
+            padding: var(--table-padding);
+            border-bottom: 1px solid #0c0c0c;
+            font-size: 0.85rem;
+            color: #aaaaaa;
+        }
+
+        .rom-table tr:hover td { background: #050505; }
+
+        .download-link {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .download-link:hover { text-decoration: underline; }
+
+        .archive-footer {
+            background: #090909;
+            border-top: 1px solid #1a1a1a;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666666;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .version-tag {
+            background: #111111;
+            color: var(--accent-color);
+            border: 1px solid #222222;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .footer-socials { display: flex; gap: 15px; }
+
+        .social-link {
+            color: #aaaaaa;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .social-link.youtube:hover { color: #ff0000; }
+        .social-link.instagram:hover { color: #e1306c; }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
             background: #090909;
             border: 1px solid #222222;
-            border-radius: 12px;
-            padding: 40px 30px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            padding: 25px;
+            max-width: 480px;
+            width: 90%;
+            border-radius: 8px;
         }
 
-        .icon-box {
-            font-size: 3rem;
-            color: #0088ff;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 10px;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-            letter-spacing: -0.5px;
+        .close-modal-btn {
+            background: transparent;
+            border: none;
+            color: #666666;
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
-        p {
-            font-size: 0.9rem;
-            color: #aaaaaa;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #111111;
-            color: #0088ff;
-            border: 1px solid #0088ff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .setting-section { margin-bottom: 20px; }
+        .setting-title {
+            font-size: 0.82rem;
+            color: #777777;
+            text-transform: uppercase;
             font-weight: bold;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
 
-        .footer-note {
-            font-size: 0.8rem;
-            color: #555555;
-            border-top: 1px solid #1a1a1a;
-            padding-top: 15px;
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .color-dot {
+            height: 35px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .color-dot.active { border-color: #ffffff; }
+
+        .density-options { display: flex; gap: 10px; }
+        .density-btn {
+            flex: 1;
+            padding: 8px;
+            background: #000000;
+            border: 1px solid #222222;
+            color: #aaaaaa;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .density-btn.active {
+            background: var(--accent-color);
+            color: #ffffff;
+        }
+
+        /* BREAKOUT OYUN MODALI */
+        #easter-egg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000000;
+            z-index: 100000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #gameCanvas {
+            border: 2px solid var(--accent-color);
+            background: #050505;
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.2);
+        }
+
+        .game-controls {
+            margin-top: 15px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .control-btn {
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .control-btn:active { background: var(--accent-color); }
+
+        .close-egg-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="block-card">
-        <div class="icon-box">
-            <i class="fa-solid fa-shield-halved"></i>
-        </div>
-        <span class="badge">Sistem Güvenliği & DDoS Koruması</span>
-        <h1>Erişim Kısıtlaması Hakkında</h1>
-        <p>Telefonhan ROM & Recovery Arşivi'ne hoş geldiniz.</p>
-        <p>Sunucu güvenliği, eski SSL protokol zafiyetleri ve DDoS koruma standartlarımız gereği, sitemize erişim için **Android 6.0 (Marshmallow)** veya üzeri bir işletim sistemi gereklidir.</p>
-        <p>Cihazınızı güncel bir custom ROM veya recovery ile yükselterek tüm içeriğimize güvenle erişebilirsiniz.</p>
-        
-        <div class="footer-note">
-            Telefonhan Arşiv Sistemi © 2026
+    <!-- YASAL UYARI MODALI -->
+    <div id="disclaimer-modal" class="modal-overlay">
+        <div class="modal-content" style="border-color: #ff3333; text-align: center;">
+            <div style="font-size: 2.5rem; color: #ff3333; margin-bottom: 15px;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2 style="margin-bottom: 15px;">Önemli Uyarı</h2>
+            <p style="font-size: 0.88rem; color: #aaaaaa; line-height: 1.6; margin-bottom: 15px;">Bu arşivde yer alan ROM ve Recovery dosyalarının geliştirilmesi/yapımı şahsıma ait değildir.</p>
+            <button onclick="acceptDisclaimer()" style="background: #ffffff; color: #000000; border: none; padding: 12px 25px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%;">Anladım, Devam Et</button>
         </div>
     </div>
 
+    <!-- AYARLAR MODALI -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-sliders"></i> Site Ayarları</h3>
+                <button class="close-modal-btn" onclick="closeSettings()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="setting-section">
+                <div class="setting-title">Accent Vurgu Rengi</div>
+                <div class="color-palette">
+                    <div class="color-dot active" style="background: #0088ff;" onclick="changeAccent('#0088ff', this)"></div>
+                    <div class="color-dot" style="background: #00e676;" onclick="changeAccent('#00e676', this)"></div>
+                    <div class="color-dot" style="background: #ff1744;" onclick="changeAccent('#ff1744', this)"></div>
+                    <div class="color-dot" style="background: #d500f9;" onclick="changeAccent('#d500f9', this)"></div>
+                    <div class="color-dot" style="background: #ffab00;" onclick="changeAccent('#ffab00', this)"></div>
+                </div>
+            </div>
+            <div class="setting-section">
+                <div class="setting-title">Tablo Satır Sıkılığı</div>
+                <div class="density-options">
+                    <button class="density-btn" onclick="setDensity('8px 15px', this)">Sıkışık</button>
+                    <button class="density-btn active" onclick="setDensity('12px 15px', this)">Standart</button>
+                    <button class="density-btn" onclick="setDensity('16px 15px', this)">Rahat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BREAKOUT EASTER EGG EKRANI -->
+    <div id="easter-egg-container">
+        <button class="close-egg-btn" onclick="closeEasterEgg()"><i class="fa-solid fa-xmark"></i> Çıkış</button>
+        <canvas id="gameCanvas" width="480" height="400"></canvas>
+        <div class="game-controls">
+            <button class="control-btn" id="leftBtn"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="control-btn" id="rightBtn"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="archive-header">
+        <div class="header-left">
+            <a href="https://telefonhan.github.io/roms">
+                <img src="logo.png" alt="Telefonhan Logo" class="site-logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" id="searchBox" class="search-box" placeholder="Cihaz veya kod adı ara..." onkeyup="filterDevices()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <button class="settings-btn" onclick="openSettings()"><i class="fa-solid fa-gear"></i></button>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <div class="main-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-title">Brands</div>
+            <div class="brand-cluster">
+                <div class="brand-header" onclick="toggleBrand(this)">
+                    <span>Samsung</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="brand-devices">
+                    <div class="device-item" onclick="openDeviceMenu('i9300', this)">Galaxy S3 (i9300)</div>
+                    <div class="device-item" onclick="openDeviceMenu('golden', this)">Galaxy S3 Mini (golden)</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <div id="welcomeScreen" class="welcome-screen">
+                <p>Lütfen sol menüden bir marka veya cihaz seçin.</p>
+            </div>
+            <div id="menu-i9300" class="rom-table-container">
+                <table class="rom-table">
+                    <thead><tr><th>Dosya</th><th>Android</th><th>İndir</th></tr></thead>
+                    <tbody><tr><td>LineageOS 18.1</td><td>Android 11</td><td><a href="#" class="download-link">İndir</a></td></tr></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="archive-footer">
+        <div class="footer-left">
+            <span>Telefonhan © 2026</span>
+            <span class="version-tag" onclick="handleVersionClick()">v2.9.420</span>
+        </div>
+        <div class="footer-socials">
+            <a href="https://youtube.com/@Telefonhan" class="social-link youtube"><i class="fa-brands fa-youtube"></i> @Telefonhan</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem("rom_disclaimer_accepted")) {
+                document.getElementById("disclaimer-modal").style.display = "flex";
+            }
+        });
+
+        function acceptDisclaimer() {
+            localStorage.setItem("rom_disclaimer_accepted", "true");
+            document.getElementById("disclaimer-modal").style.display = "none";
+        }
+
+        function openSettings() { document.getElementById("settings-modal").style.display = "flex"; }
+        function closeSettings() { document.getElementById("settings-modal").style.display = "none"; }
+
+        function changeAccent(color, el) {
+            document.documentElement.style.setProperty('--accent-color', color);
+            document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function setDensity(padding, el) {
+            document.documentElement.style.setProperty('--table-padding', padding);
+            document.querySelectorAll('.density-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function toggleBrand(el) { el.parentElement.classList.toggle('active'); }
+        function openDeviceMenu(codename, element) {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.querySelectorAll('.rom-table-container').forEach(t => t.classList.remove('active'));
+            document.getElementById('menu-' + codename).classList.add('active');
+        }
+
+        // ==========================================
+        // BREAKOUT EASTER EGG OYUN ENGINE
+        // ==========================================
+        let versionClickCount = 0;
+        let clickTimer;
+
+        function handleVersionClick() {
+            versionClickCount++;
+            clearTimeout(clickTimer);
+            if (versionClickCount >= 5) {
+                versionClickCount = 0;
+                startBreakoutGame();
+            } else {
+                clickTimer = setTimeout(() => { versionClickCount = 0; }, 1200);
+            }
+        }
+
+        const androidLevels = [
+            "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", 
+            "Honeycomb", "Ice Cream Sandwich", "Jelly Bean", "KitKat", 
+            "Lollipop", "Marshmallow", "Nougat", "Oreo", "Pie", 
+            "Quince Tart", "Red Velvet Cake", "Snow Cone", "Tiramisu", 
+            "Upside Down Cake", "Vanilla Ice Cream", "Baklava"
+        ];
+
+        let currentLevelIndex = 0;
+        let gameLoop;
+
+        function startBreakoutGame() {
+            document.getElementById('easter-egg-container').style.display = 'flex';
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+
+            let paddleWidth = 75;
+            let paddleHeight = 10;
+            let paddleX = (canvas.width - paddleWidth) / 2;
+
+            let x = canvas.width / 2;
+            let y = canvas.height - 30;
+            let dx = 3;
+            let dy = -3;
+            let ballRadius = 6;
+
+            let rightPressed = false;
+            let leftPressed = false;
+
+            const rowCount = 4;
+            const columnCount = 5;
+            const brickWidth = 75;
+            const brickHeight = 18;
+            const brickPadding = 10;
+            const brickOffsetTop = 40;
+            const brickOffsetLeft = 30;
+
+            let bricks = [];
+            function initBricks() {
+                for (let c = 0; c < columnCount; c++) {
+                    bricks[c] = [];
+                    for (let r = 0; r < rowCount; r++) {
+                        bricks[c][r] = { x: 0, y: 0, status: 1 };
+                    }
+                }
+            }
+            initBricks();
+
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Right" || e.key === "ArrowRight") rightPressed = true;
+                if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = true;
+            });
+            document.addEventListener("keyup", (e) => {
+                if (e.key === "Right" || e.key === "ArrowRight") rightPressed = false;
+                if (e.key === "Left" || e.key === "ArrowLeft") leftPressed = false;
+            });
+
+            const leftBtn = document.getElementById('leftBtn');
+            const rightBtn = document.getElementById('rightBtn');
+
+            leftBtn.addEventListener("touchstart", () => leftPressed = true);
+            leftBtn.addEventListener("touchend", () => leftPressed = false);
+            rightBtn.addEventListener("touchstart", () => rightPressed = true);
+            rightBtn.addEventListener("touchend", () => rightPressed = false);
+
+            canvas.addEventListener("mousemove", (e) => {
+                let relativeX = e.clientX - canvas.offsetLeft;
+                if (relativeX > 0 && relativeX < canvas.width) {
+                    paddleX = relativeX - paddleWidth / 2;
+                }
+            });
+
+            function collisionDetection() {
+                let activeBricks = 0;
+                for (let c = 0; c < columnCount; c++) {
+                    for (let r = 0; r < rowCount; r++) {
+                        let b = bricks[c][r];
+                        if (b.status === 1) {
+                            activeBricks++;
+                            if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
+                                dy = -dy;
+                                b.status = 0;
+                            }
+                        }
+                    }
+                }
+
+                if (activeBricks === 0) {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+
+                    currentLevelIndex++;
+                    if (currentLevelIndex < androidLevels.length) {
+                        alert("SEVİYE TAMAMLANDI!\nYeni Sürüm Unlocked: Android " + androidLevels[currentLevelIndex]);
+                        dx += 0.5;
+                        dy = -Math.abs(dy) - 0.5;
+                        x = canvas.width / 2;
+                        y = canvas.height - 30;
+                        initBricks();
+                    } else {
+                        confetti({ particleCount: 300, spread: 100 });
+                        alert("TEBRİKLER! TÜM ANDROID SÜRÜMLERİNİ FLASH'LADINIZ!");
+                        closeEasterEgg();
+                    }
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.font = "14px Arial";
+                ctx.fillStyle = "#0088ff";
+                ctx.fillText("Android Level: " + androidLevels[currentLevelIndex], 10, 20);
+
+                for (let c = 0; c < columnCount; c++) {
+                    for (let r = 0; r < rowCount; r++) {
+                        if (bricks[c][r].status === 1) {
+                            let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                            let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                            bricks[c][r].x = brickX;
+                            bricks[c][r].y = brickY;
+                            ctx.fillStyle = "#0088ff";
+                            ctx.fillRect(brickX, brickY, brickWidth, brickHeight);
+                        }
+                    }
+                }
+
+                ctx.beginPath();
+                ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+                ctx.fillStyle = "#ffffff";
+                ctx.fill();
+                ctx.closePath();
+
+                ctx.fillStyle = "#00e676";
+                ctx.fillRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+
+                collisionDetection();
+
+                if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) dx = -dx;
+                if (y + dy < ballRadius) dy = -dy;
+                else if (y + dy > canvas.height - ballRadius) {
+                    if (x > paddleX && x < paddleX + paddleWidth) {
+                        dy = -dy;
+                    } else {
+                        alert("GAME OVER! Sistem Çöktü.");
+                        currentLevelIndex = 0;
+                        closeEasterEgg();
+                        return;
+                    }
+                }
+
+                if (rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 5;
+                else if (leftPressed && paddleX > 0) paddleX -= 5;
+
+                x += dx;
+                y += dy;
+
+                gameLoop = requestAnimationFrame(draw);
+            }
+
+            draw();
+        }
+
+        function closeEasterEgg() {
+            document.getElementById('easter-egg-container').style.display = 'none';
+            cancelAnimationFrame(gameLoop);
+        }
+    </script>
 </body>
 </html>
