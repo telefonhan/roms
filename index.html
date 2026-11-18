@@ -342,9 +342,6 @@
             color: #ff0000;
         }
 
-        .social-link.instagram:hover {
-            color: #e1306c;
-        }
 
         /* İnce Kaydırma Çubukları */
         ::-webkit-scrollbar {
@@ -428,6 +425,174 @@
             color: #ffffff;
         }
 
+        /* SOL SIDEBAR ALT REPORT ALANI */
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 12px 15px;
+            border-top: 1px solid #1a1a1a;
+            background: #030303;
+        }
+
+        .report-trigger-btn {
+            width: 100%;
+            background: #080808;
+            border: 1px solid #1f1f1f;
+            color: #aaaaaa;
+            padding: 9px 12px;
+            font-size: 0.82rem;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+
+        .report-trigger-btn i {
+            color: #ff3333;
+            font-size: 0.85rem;
+        }
+
+        .report-trigger-btn:hover {
+            border-color: #ff3333;
+            color: #ffffff;
+            background: #0d0505;
+        }
+
+        /* REPORT MODAL FORM ELEMANLARI */
+        .report-modal-content {
+            background: #090909;
+            border: 1px solid #222222;
+            border-top: 3px solid #ff3333;
+            padding: 24px;
+            max-width: 460px;
+            width: 92%;
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        .report-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .report-modal-header h3 {
+            font-size: 1.05rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .report-modal-header h3 i {
+            color: #ff3333;
+        }
+
+        .report-close-btn {
+            background: transparent;
+            border: none;
+            color: #666666;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+
+        .report-close-btn:hover {
+            color: #ffffff;
+        }
+
+        .report-field {
+            margin-bottom: 13px;
+        }
+
+        .report-field label {
+            display: block;
+            font-size: 0.78rem;
+            color: #888888;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .report-input,
+        .report-select,
+        .report-textarea {
+            width: 100%;
+            background: #000000;
+            border: 1px solid #222222;
+            border-radius: 4px;
+            color: #ffffff;
+            font-size: 0.84rem;
+            padding: 9px 11px;
+            outline: none;
+        }
+
+        .report-input:focus,
+        .report-select:focus,
+        .report-textarea:focus {
+            border-color: #0088ff;
+        }
+
+        .report-textarea {
+            resize: vertical;
+            min-height: 75px;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .report-submit-btn {
+            flex: 1;
+            background: #0088ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .report-submit-btn:hover {
+            background: #0070d6;
+        }
+
+        .report-submit-btn:disabled {
+            background: #1a1a1a;
+            color: #555555;
+            cursor: not-allowed;
+        }
+
+        .report-status {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            display: none;
+            padding: 8px 10px;
+            border-radius: 4px;
+        }
+
+        .report-status.success {
+            display: block;
+            background: #05140a;
+            border: 1px solid #144d26;
+            color: #4ade80;
+        }
+
+        .report-status.error {
+            display: block;
+            background: #140505;
+            border: 1px solid #4d1414;
+            color: #f87171;
+        }
+
         /* Responsive Footer Ayarı */
         @media (max-width: 600px) {
             .archive-footer {
@@ -451,6 +616,55 @@
             <p>Bu arşivde yer alan ROM ve Recovery dosyalarının geliştirilmesi/yapımı şahsıma ait değildir. Dosyalar açık kaynaklı topluluklar ve bağımsız geliştiriciler tarafından üretilmiştir.</p>
             <p>Cihazınıza yazılım yüklerken oluşabilecek tüm sorumluluk size aittir. Oluşabilecek olumsuz durumlardan Telefonhan sorumlu tutulamaz.</p>
             <button onclick="acceptDisclaimer()">Anladım, Devam Et</button>
+        </div>
+    </div>
+
+    <!-- SORUN BİLDİR (REPORT) POP-UP KUTUSU -->
+    <div id="report-modal" class="modal-overlay" onclick="if(event.target === this) closeReportModal()">
+        <div class="report-modal-content">
+            <div class="report-modal-header">
+                <h3><i class="fa-solid fa-flag"></i> Sorun / Hata Bildir</h3>
+                <button type="button" class="report-close-btn" onclick="closeReportModal()" title="Kapat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="reportForm" onsubmit="submitReport(event)">
+                <div class="report-field">
+                    <label for="reportCategory">Sorun Kategorisi *</label>
+                    <select id="reportCategory" class="report-select" required>
+                        <option value="Kırık / Çalışmayan Link">Kırık / Çalışmayan Link</option>
+                        <option value="Bozuk / Hatalı ZIP veya Arşiv Dosyası">Bozuk / Hatalı ZIP veya Arşiv Dosyası</option>
+                        <option value="Yanlış Cihaz / Kod Adı veya İsimlendirme">Yanlış Cihaz / Kod Adı veya İsimlendirme</option>
+                        <option value="Yanlış Android Sürümü / Eksik Bilgi">Yanlış Android Sürümü / Eksik Bilgi</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+
+                <div class="report-field">
+                    <label for="reportDevice">İlgili Cihaz / Bölüm *</label>
+                    <select id="reportDevice" class="report-select" required onchange="populateDeviceFiles()">
+                        <option value="Genel / Site Geneli">Genel / Site Geneli</option>
+                    </select>
+                </div>
+
+                <div class="report-field">
+                    <label for="reportFile">İlgili Dosya (Opsiyonel)</label>
+                    <select id="reportFile" class="report-select">
+                        <option value="Belirtilmedi">Dosya seçilmedi / Tümü</option>
+                    </select>
+                </div>
+
+                <div class="report-field">
+                    <label for="reportNote">Açıklama *</label>
+                    <textarea id="reportNote" class="report-textarea" placeholder="Örn: İndirme linki 404 veriyor veya dosya adı yanlış yazılmış..." required></textarea>
+                </div>
+
+                <div id="reportStatus" class="report-status"></div>
+
+                <div class="report-actions">
+                    <button type="submit" id="reportSubmitBtn" class="report-submit-btn">Bildirimi Gönder</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -521,6 +735,14 @@
                     <div class="device-item" onclick="openDeviceMenu('tools-7870', this)">Exynos 7870 Tools</div>
                     <div class="device-item" onclick="openDeviceMenu('tools-8890', this)">Exynos 8890 Tools</div>
                 </div>
+            </div>
+
+            <!-- ALT REPORT BUTONU -->
+            <div class="sidebar-bottom">
+                <button type="button" class="report-trigger-btn" onclick="openReportModal()">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Kırık Link / Sorun Bildir</span>
+                </button>
             </div>
 
         </aside>
@@ -1552,9 +1774,6 @@
             <a href="https://youtube.com/@Telefonhan" class="social-link youtube" target="_blank">
                 <i class="fa-brands fa-youtube"></i> @Telefonhan
             </a>
-            <a href="https://instagram.com/telefonhan" class="social-link instagram" target="_blank">
-                <i class="fa-brands fa-instagram"></i> telefonhan
-            </a>
         </div>
     </footer>
 
@@ -1634,6 +1853,154 @@
                 } else {
                     clusters[i].classList.remove('active');
                 }
+            }
+        }
+
+        // ==========================================
+        // REPORT (SORUN BİLDİRME) SİSTEMİ
+        // ==========================================
+        // Bildirimleri doğrudan panelden görmek için Formspree (ücretsiz) endpoint adresini buraya yapıştır:
+        // Örn: "https://formspree.io/f/xxxxxxxx"
+        const REPORT_ENDPOINT = "https://formspree.io/f/myewjpkb";
+
+        let activeDeviceCodename = "";
+
+        // openDeviceMenu çağrıldığında aktif cihazı kaydet
+        const originalOpenDeviceMenu = openDeviceMenu;
+        openDeviceMenu = function(codename, element) {
+            activeDeviceCodename = codename;
+            originalOpenDeviceMenu(codename, element);
+        };
+
+        function initReportOptions() {
+            const deviceSelect = document.getElementById('reportDevice');
+            if (!deviceSelect) return;
+
+            // Mevcut seçenekleri sıfırla (ilk seçenek hariç)
+            deviceSelect.innerHTML = '<option value="Genel / Site Geneli">Genel / Site Geneli</option>';
+
+            const deviceItems = document.querySelectorAll('.sidebar .device-item');
+            deviceItems.forEach(item => {
+                const onclickAttr = item.getAttribute('onclick') || '';
+                const match = onclickAttr.match(/openDeviceMenu\('([^']+)'/);
+                const codename = match ? match[1] : '';
+                const opt = document.createElement('option');
+                opt.value = item.innerText.trim();
+                opt.dataset.codename = codename;
+                opt.textContent = item.innerText.trim();
+                deviceSelect.appendChild(opt);
+            });
+        }
+
+        function populateDeviceFiles() {
+            const deviceSelect = document.getElementById('reportDevice');
+            const fileSelect = document.getElementById('reportFile');
+            const selectedOpt = deviceSelect.options[deviceSelect.selectedIndex];
+            const codename = selectedOpt ? selectedOpt.dataset.codename : '';
+
+            fileSelect.innerHTML = '<option value="Belirtilmedi">Dosya seçilmedi / Tümü</option>';
+            if (!codename) return;
+
+            const container = document.getElementById('menu-' + codename);
+            if (!container) return;
+
+            const rows = container.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const firstCell = row.querySelector('td');
+                if (firstCell) {
+                    const fileName = firstCell.innerText.trim();
+                    const opt = document.createElement('option');
+                    opt.value = fileName;
+                    opt.textContent = fileName;
+                    fileSelect.appendChild(opt);
+                }
+            });
+        }
+
+        function openReportModal() {
+            initReportOptions();
+
+            const deviceSelect = document.getElementById('reportDevice');
+            if (activeDeviceCodename) {
+                for (let i = 0; i < deviceSelect.options.length; i++) {
+                    if (deviceSelect.options[i].dataset.codename === activeDeviceCodename) {
+                        deviceSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+            populateDeviceFiles();
+
+            const statusBox = document.getElementById('reportStatus');
+            statusBox.className = 'report-status';
+            statusBox.textContent = '';
+
+            document.getElementById('report-modal').style.display = 'flex';
+        }
+
+        function closeReportModal() {
+            document.getElementById('report-modal').style.display = 'none';
+        }
+
+        async function submitReport(event) {
+            event.preventDefault();
+
+            const category = document.getElementById('reportCategory').value;
+            const device = document.getElementById('reportDevice').value;
+            const file = document.getElementById('reportFile').value;
+            const note = document.getElementById('reportNote').value.trim();
+            const submitBtn = document.getElementById('reportSubmitBtn');
+            const statusBox = document.getElementById('reportStatus');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Gönderiliyor...';
+
+            const payload = {
+                kategori: category,
+                cihaz: device,
+                dosya: file,
+                aciklama: note,
+                tarih: new Date().toLocaleString('tr-TR')
+            };
+
+            if (!REPORT_ENDPOINT) {
+                // Endpoint henüz girilmediyse tarayıcıda yedekle ve bilgi ver
+                const savedReports = JSON.parse(localStorage.getItem('telefonhan_reports') || '[]');
+                savedReports.push(payload);
+                localStorage.setItem('telefonhan_reports', JSON.stringify(savedReports));
+
+                statusBox.className = 'report-status success';
+                statusBox.textContent = 'Bildirim kaydedildi! (Not: Canlı gönderim için kod içindeki REPORT_ENDPOINT alanını bağlayın.)';
+                document.getElementById('reportForm').reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Bildirimi Gönder';
+                return;
+            }
+
+            try {
+                const response = await fetch(REPORT_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    statusBox.className = 'report-status success';
+                    statusBox.textContent = 'Bildiriminiz başarıyla iletildi. Teşekkürler!';
+                    document.getElementById('reportForm').reset();
+                    setTimeout(closeReportModal, 1600);
+                } else {
+                    throw new Error('Sunucu hatası');
+                }
+            } catch (err) {
+                statusBox.className = 'report-status error';
+                statusBox.textContent = 'Gönderim sırasında hata oluştu. Lütfen daha sonra tekrar deneyin.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Bildirimi Gönder';
             }
         }
     </script>
