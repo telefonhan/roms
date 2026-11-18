@@ -187,7 +187,7 @@
         }
 
         .brand-cluster.active .brand-devices {
-            max-height: 850px;
+            max-height: 1200px;
         }
 
         /* Cihaz Liste Elemanları */
@@ -466,7 +466,7 @@
             border: 1px solid #222222;
             border-top: 3px solid #ff3333;
             padding: 24px;
-            max-width: 460px;
+            max-width: 480px;
             width: 92%;
             border-radius: 6px;
             text-align: left;
@@ -544,7 +544,7 @@
             min-height: 60px;
         }
 
-        /* 2 AŞAMALI DOĞRULAMA KUTULARI */
+        /* 2 AŞAMALI DOĞRULAMA KUTULARI (BİR SÜRÜ EMOJİ) */
         .verification-box {
             background: #050505;
             border: 1px dashed #222222;
@@ -565,8 +565,8 @@
 
         .puzzle-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
             background: #000000;
             border: 1px solid #1f1f1f;
             padding: 10px;
@@ -574,15 +574,28 @@
             margin-top: 6px;
         }
 
-        .puzzle-source-area, .puzzle-target-area {
+        .puzzle-source-area {
             display: flex;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            background: #040404;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #151515;
+        }
+
+        .puzzle-target-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .draggable-shape {
-            width: 40px;
-            height: 40px;
-            background: #0088ff;
+            width: 36px;
+            height: 36px;
+            background: #111111;
+            border: 1px solid #333333;
             color: #fff;
             display: flex;
             align-items: center;
@@ -591,7 +604,8 @@
             border-radius: 4px;
             cursor: grab;
             user-select: none;
-            touch-action: none; /* Mobilde ekran kaydırmayı engellemek için */
+            touch-action: none;
+            transition: border-color 0.2s, background 0.2s;
         }
 
         .draggable-shape:active {
@@ -741,7 +755,7 @@
                     <textarea id="reportNote" class="report-textarea" placeholder="Örn: İndirme linki 404 veriyor..." required></textarea>
                 </div>
 
-                <!-- 2 AŞAMALI GÜVENLİK DOĞRULAMASI -->
+                <!-- 2 AŞAMALI GÜVENLİK DOĞRULAMASI (BİR SÜRÜ EMOJİ) -->
                 <div class="verification-box">
                     <div class="verification-title">
                         <i class="fa-solid fa-shield-halved"></i> Güvenlik Doğrulaması (2 Aşama)
@@ -753,16 +767,23 @@
                         <input type="number" id="mathAnswerInput" class="report-input" placeholder="Sonucu yazın" required autocomplete="off">
                     </div>
 
-                    <!-- Aşama 2: Şekli Sürükleme (Dokunmatik + Mouse Uyumlu) -->
+                    <!-- Aşama 2: Çoklu Emoji Sürükleme -->
                     <div class="report-field" style="margin-bottom: 0;">
-                        <label style="color: #ffffff; font-size: 0.8rem;">Yıldız (⭐) şeklini hedef kutuya sürükleyin:</label>
+                        <label style="color: #ffffff; font-size: 0.8rem;" id="targetEmojiInstruction">Doğru simgeyi hedef kutuya sürükleyin:</label>
                         <div class="puzzle-container">
-                            <div class="puzzle-source-area">
-                                <div class="draggable-shape" id="shapeStar" data-shape="star">⭐</div>
-                                <div class="draggable-shape" id="shapeCircle" data-shape="circle">🔵</div>
+                            <!-- Karışık Bir Sürü Emoji Seçeneği -->
+                            <div class="puzzle-source-area" id="puzzleSourceArea">
+                                <div class="draggable-shape" data-emoji="🔥">🔥</div>
+                                <div class="draggable-shape" data-emoji="⭐" id="correctEmojiNode">⭐</div>
+                                <div class="draggable-shape" data-emoji="🚀">🚀</div>
+                                <div class="draggable-shape" data-emoji="💎">💎</div>
+                                <div class="draggable-shape" data-emoji="⚡">⚡</div>
+                                <div class="draggable-shape" data-emoji="🛡️">🛡️</div>
+                                <div class="draggable-shape" data-emoji="🎯">🎯</div>
+                                <div class="draggable-shape" data-emoji="⚙️">⚙️</div>
                             </div>
-                            <div style="font-size: 0.75rem; color: #666;">➔</div>
-                            <div class="puzzle-target-area">
+                            <div class="puzzle-target-row">
+                                <span style="font-size: 0.75rem; color: #888;" id="targetHintText">Hedef: Yıldız (⭐)</span>
                                 <div class="drop-zone" id="dropZone">Hedef</div>
                             </div>
                         </div>
@@ -815,7 +836,13 @@
                     <div class="device-item" onclick="openDeviceMenu('hero2lte', this)">Galaxy S7 Edge (hero2lte)</div>
                     <div class="device-item" onclick="openDeviceMenu('gracerlte', this)">Galaxy Note 7 (gracerlte)</div>
                     <div class="device-item" onclick="openDeviceMenu('gracelte', this)">Galaxy Note FE (gracelte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('dreamlte', this)">Galaxy S8 (dreamlte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('dream2lte', this)">Galaxy S8+ (dream2lte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('starlte', this)">Galaxy S9 (starlte)</div>
                     <div class="device-item" onclick="openDeviceMenu('star2lte', this)">Galaxy S9+ (star2lte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('crownlte', this)">Galaxy Note 9 (crownlte)</div>
+                    <div class="device-item" onclick="openDeviceMenu('a3', this)">Galaxy A3 (a3)</div>
+                    <div class="device-item" onclick="openDeviceMenu('a8plus', this)">Galaxy A8+ (a8plus)</div>
                     <div class="device-item" onclick="openDeviceMenu('a10', this)">Galaxy A10 (a10)</div>
                     <div class="device-item" onclick="openDeviceMenu('j5lte', this)">Galaxy J5 2015 (j5lte)</div>
                     <div class="device-item" onclick="openDeviceMenu('j7elte', this)">Galaxy J7 2015 (j7elte)</div>
@@ -1548,6 +1575,111 @@
             </div>
 
             <!-- ==============================================
+                 SAMSUNG GALAXY S8 (DREAMLTE)
+                 ============================================== -->
+            <div id="menu-dreamlte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Galaxy S8 (SM-G950F/FD - dreamlte) Exynos modeline ait One UI portu ve özel ROM yapılarıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UN1CA_1.5 (stable)-Unofficial-UN1CA_dreamlte.zip</td>
+                            <td>Android 16 (OneUI 8)</td>
+                            <td>2026-11-02</td>
+                            <td>UNOFFICIAL</td>
+                            <td>5.35 GB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 SAMSUNG GALAXY S8+ (DREAM2LTE)
+                 ============================================== -->
+            <div id="menu-dream2lte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Galaxy S8+ (SM-G955F/FD - dream2lte) Exynos modeline ait One UI portu ve özel ROM yapılarıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UN1CA_1.5 (stable)-Unofficial-UN1CA_dream2lte.zip</td>
+                            <td>Android 16 (OneUI 8)</td>
+                            <td>2026-11-02</td>
+                            <td>UNOFFICIAL</td>
+                            <td>5.40 GB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 SAMSUNG GALAXY S9 (STARLTE)
+                 ============================================== -->
+            <div id="menu-starlte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Galaxy S9 (SM-G960F/FD - starlte) Exynos modeline ait One UI 8 port ROM yapısıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UN1CA_1.5 (stable)-Unofficial-UN1CA 3.2.1_20261102_starlte-sign.zip</td>
+                            <td>Android 16 (OneUI 8)</td>
+                            <td>2026-11-02</td>
+                            <td>UNOFFICIAL</td>
+                            <td>5.45 GB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
                  SAMSUNG GALAXY S9+ (STAR2LTE)
                  ============================================== -->
             <div id="menu-star2lte" class="rom-table-container">
@@ -1585,6 +1717,111 @@
                             <td>RECOVERY</td>
                             <td>51.90 MB</td>
                             <td><a href="https://drive.google.com/file/d/12Bk0JJXPIvqbEzWtONAuf543pnfEJPHa/view?usp=drive_link" class="download-link" target="_blank">TWRP (Odin)</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 SAMSUNG GALAXY NOTE 9 (CROWNLTE)
+                 ============================================== -->
+            <div id="menu-crownlte" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Galaxy Note 9 (SM-N960F/FD - crownlte) Exynos modeline ait One UI 8 port ROM yapısıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UN1CA_1.5 (stable)-Unofficial-UN1CA 3.2.1_20261102_crownlte-sign.zip</td>
+                            <td>Android 16 (OneUI 8)</td>
+                            <td>2026-11-02</td>
+                            <td>UNOFFICIAL</td>
+                            <td>5.62 GB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 SAMSUNG GALAXY A3 (A3)
+                 ============================================== -->
+            <div id="menu-a3" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Galaxy A3 serisi için topluluk tarafından derlenen kararlı custom ROM ve recovery dosyalarıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lineage-16.0-UNOFFICIAL-a3.zip</td>
+                            <td>Android 9.0</td>
+                            <td>-</td>
+                            <td>UNOFFICIAL</td>
+                            <td>410.20 MB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ==============================================
+                 SAMSUNG GALAXY A8+ (A8PLUS)
+                 ============================================== -->
+            <div id="menu-a8plus" class="rom-table-container">
+                <div class="device-notes">
+                    <h4>Notlar</h4>
+                    <ul>
+                        <li>Samsung Galaxy A8+ 2018 (SM-A730F - a8plus) modeline ait ROM ve recovery dosyalarıdır.</li>
+                    </ul>
+                </div>
+
+                <table class="rom-table">
+                    <thead>
+                        <tr>
+                            <th>Dosya</th>
+                            <th>Android Sürümü</th>
+                            <th>Tarih</th>
+                            <th>Tip</th>
+                            <th>Boyut</th>
+                            <th>İndir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lineage-18.1-UNOFFICIAL-a8plus.zip</td>
+                            <td>Android 11</td>
+                            <td>-</td>
+                            <td>UNOFFICIAL</td>
+                            <td>720.50 MB</td>
+                            <td><a href="#" class="download-link" target="_blank">İndir</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1895,7 +2132,7 @@
             if (!localStorage.getItem("rom_disclaimer_accepted")) {
                 document.getElementById("disclaimer-modal").style.display = "flex";
             }
-            generateMathQuestion();
+            setupCaptchaChallenge();
             initTouchDragAndDrop();
         });
 
@@ -1970,36 +2207,85 @@
         }
 
         // ==========================================
-        // 2 AŞAMALI YEREL DOĞRULAMA (MATEMATİK + DOKUNMATİK SÜRÜKLE-BIRAK)
+        // 2 AŞAMALI YEREL DOĞRULAMA (MATEMATİK + ÇOKLU EMOJİ SÜRÜKLE-BIRAK)
         // ==========================================
         let currentMathAnswer = 0;
+        let targetEmoji = "⭐";
 
-        function generateMathQuestion() {
+        const availableEmojis = [
+            { emoji: "⭐", name: "Yıldız" },
+            { emoji: "🔥", name: "Ateş" },
+            { emoji: "🚀", name: "Roket" },
+            { emoji: "💎", name: "Elmas" },
+            { emoji: "⚡", name: "Şimşek" },
+            { emoji: "🛡️", name: "Kalkan" },
+            { emoji: "🎯", name: "Hedef" },
+            { emoji: "⚙️", name: "Dişli" },
+            { emoji: "🍎", name: "Elma" },
+            { emoji: "🎧", name: "Kulaklık" },
+            { emoji: "💡", name: "Ampul" },
+            { emoji: "🍀", name: "Yonca" }
+        ];
+
+        function setupCaptchaChallenge() {
+            // 1. Matematik sorusu üret
             const num1 = Math.floor(Math.random() * 10) + 1;
             const num2 = Math.floor(Math.random() * 10) + 1;
             currentMathAnswer = num1 + num2;
             document.getElementById('mathQuestionLabel').innerText = `Matematik Doğrulaması: ${num1} + ${num2} kaç eder? *`;
+
+            // 2. Rastgele bir hedef emoji seç
+            const randomIndex = Math.floor(Math.random() * availableEmojis.length);
+            targetEmoji = availableEmojis[randomIndex].emoji;
+            const targetName = availableEmojis[randomIndex].name;
+
+            document.getElementById('targetHintText').innerText = `Hedef: ${targetName} (${targetEmoji})`;
+
+            // 3. Emojileri karıştırıp kaynak alana yerleştir
+            const sourceArea = document.getElementById('puzzleSourceArea');
+            sourceArea.innerHTML = '';
+
+            // Seçilen emojiyi kesinlikle havuza ekle, yanına rastgele diğerlerinden 7 tane seç
+            let pool = [availableEmojis[randomIndex]];
+            let otherEmojis = availableEmojis.filter((_, idx) => idx !== randomIndex);
+            otherEmojis.sort(() => Math.random() - 0.5);
+            pool = pool.concat(otherEmojis.slice(0, 7));
+            pool.sort(() => Math.random() - 0.5);
+
+            pool.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'draggable-shape';
+                div.dataset.emoji = item.emoji;
+                div.innerText = item.emoji;
+                sourceArea.appendChild(div);
+            });
+
+            // Yeniden touch/mouse dinleyicilerini bağla
+            initTouchDragAndDrop();
         }
 
-        // Mobilde ve Masaüstünde Mükemmel Çalışan Touch & Mouse Sürükleme Motoru
+        // Mobilde ve Masaüstünde Mükemmel Çalışan Touch & Mouse Sürükleme Motoru (Çoklu Emoji)
         function initTouchDragAndDrop() {
-            const draggables = document.querySelectorAll('.draggable-shape');
+            const items = document.querySelectorAll('.draggable-shape');
             const dropZone = document.getElementById('dropZone');
+            if (!dropZone) return;
 
-            draggables.forEach(item => {
+            items.forEach(item => {
                 let initialX = 0, initialY = 0;
                 let currentX = 0, currentY = 0;
                 let active = false;
-                let originalParent = item.parentElement;
 
-                // Mouse / Dokunma Başlangıcı
-                item.addEventListener('mousedown', dragStart);
-                item.addEventListener('touchstart', dragStart, {passive: false});
+                // Eski dinleyicileri klonlayarak temizle
+                let newItem = item.cloneNode(true);
+                item.parentNode.replaceChild(newItem, item);
+
+                newItem.addEventListener('mousedown', dragStart);
+                newItem.addEventListener('touchstart', dragStart, {passive: false});
 
                 function dragStart(e) {
-                    if (item.getAttribute('draggable') === 'false') return;
+                    if (newItem.getAttribute('draggable') === 'false') return;
                     active = true;
-                    item.style.zIndex = 1000;
+                    newItem.style.zIndex = 1000;
                     
                     const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
                     const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
@@ -2023,11 +2309,10 @@
                     currentX = clientX - initialX;
                     currentY = clientY - initialY;
 
-                    item.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+                    newItem.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
 
-                    // Hedef alanın üzerine gelip gelmediğini kontrol et
                     const zoneRect = dropZone.getBoundingClientRect();
-                    const itemRect = item.getBoundingClientRect();
+                    const itemRect = newItem.getBoundingClientRect();
 
                     if (itemRect.left < zoneRect.right && itemRect.right > zoneRect.left &&
                         itemRect.top < zoneRect.bottom && itemRect.bottom > zoneRect.top) {
@@ -2047,27 +2332,25 @@
                     document.removeEventListener('touchend', dragEnd);
 
                     const zoneRect = dropZone.getBoundingClientRect();
-                    const itemRect = item.getBoundingClientRect();
+                    const itemRect = newItem.getBoundingClientRect();
 
-                    // Hedef kutunun içine bırakıldı mı?
                     const isInside = (itemRect.left < zoneRect.right && itemRect.right > zoneRect.left &&
-                                      itemRect.top < zoneRect.bottom && itemRect.bottom > zoneRect.top);
+                                      itemRect.top < zoneRect.bottom && itemRect.top > zoneRect.top);
 
                     dropZone.classList.remove('hovered');
 
-                    if (isInside && item.dataset.shape === 'star') {
-                        dropZone.innerHTML = "⭐";
+                    if (isInside && newItem.dataset.emoji === targetEmoji) {
+                        dropZone.innerHTML = targetEmoji;
                         dropZone.classList.add('filled');
                         document.getElementById('puzzleVerifiedInput').value = "true";
-                        item.style.display = "none";
-                        document.getElementById('shapeCircle').style.display = "none";
+                        newItem.style.display = "none";
                     } else {
-                        // Yanlış yere bırakıldıysa yerine geri dön
                         currentX = 0;
                         currentY = 0;
-                        item.style.transform = `translate3d(0px, 0px, 0)`;
-                        item.style.zIndex = 1;
+                        newItem.style.transform = `translate3d(0px, 0px, 0)`;
+                        newItem.style.zIndex = 1;
                         if (isInside) {
+                            // Yanlış emoji bırakıldıysa kutu kırmızı yanıp söner
                             dropZone.style.borderColor = "#f87171";
                             setTimeout(() => { dropZone.style.borderColor = "#444444"; }, 1000);
                         }
@@ -2075,7 +2358,6 @@
                 }
             });
         }
-
 
         // ==========================================
         // REPORT (SORUN BİLDİRME) SİSTEMİ
@@ -2148,21 +2430,13 @@
             }
             populateDeviceFiles();
 
-            // Modalı açarken testleri sıfırla ve yeni soru üret
-            generateMathQuestion();
+            setupCaptchaChallenge();
             document.getElementById('mathAnswerInput').value = '';
             document.getElementById('puzzleVerifiedInput').value = 'false';
             
             const dropZone = document.getElementById('dropZone');
             dropZone.innerHTML = 'Hedef';
             dropZone.classList.remove('filled');
-            
-            const shapeStar = document.getElementById('shapeStar');
-            const shapeCircle = document.getElementById('shapeCircle');
-            shapeStar.style.display = "flex";
-            shapeStar.style.transform = "translate3d(0px, 0px, 0)";
-            shapeCircle.style.display = "flex";
-            shapeCircle.style.transform = "translate3d(0px, 0px, 0)";
 
             const statusBox = document.getElementById('reportStatus');
             statusBox.className = 'report-status';
@@ -2182,18 +2456,16 @@
             const userMathInput = parseInt(document.getElementById('mathAnswerInput').value);
             const isPuzzleDone = document.getElementById('puzzleVerifiedInput').value === "true";
 
-            // Aşama 1 Kontrolü: Matematik
             if (userMathInput !== currentMathAnswer) {
                 statusBox.className = 'report-status error';
                 statusBox.textContent = 'Matematik doğrulama sonucu yanlış! Lütfen tekrar deneyin.';
-                generateMathQuestion();
+                setupCaptchaChallenge();
                 return;
             }
 
-            // Aşama 2 Kontrolü: Sürükleme
             if (!isPuzzleDone) {
                 statusBox.className = 'report-status error';
-                statusBox.textContent = 'Lütfen yıldız (⭐) şeklini hedef kutuya sürükleyin!';
+                statusBox.textContent = 'Lütfen istenen doğru emojiyi hedef kutuya sürükleyin!';
                 return;
             }
 
@@ -2213,7 +2485,7 @@
             formData.append('Cihaz', device);
             formData.append('Dosya', file);
             formData.append('Aciklama', note);
-            formData.append('Dogrulama', 'Başarılı (Matematik + Dokunmatik Sürükleme)');
+            formData.append('Dogrulama', 'Başarılı (Matematik + Çoklu Emoji Sürükleme)');
             formData.append('Tarih', new Date().toLocaleString('tr-TR'));
 
             try {
