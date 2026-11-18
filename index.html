@@ -470,14 +470,16 @@
             width: 92%;
             border-radius: 6px;
             text-align: left;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .report-modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
             border-bottom: 1px solid #1a1a1a;
         }
 
@@ -507,14 +509,14 @@
         }
 
         .report-field {
-            margin-bottom: 13px;
+            margin-bottom: 12px;
         }
 
         .report-field label {
             display: block;
             font-size: 0.78rem;
             color: #888888;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: bold;
         }
 
@@ -527,7 +529,7 @@
             border-radius: 4px;
             color: #ffffff;
             font-size: 0.84rem;
-            padding: 9px 11px;
+            padding: 8px 10px;
             outline: none;
         }
 
@@ -539,13 +541,93 @@
 
         .report-textarea {
             resize: vertical;
-            min-height: 75px;
+            min-height: 60px;
+        }
+
+        /* 2 AŞAMALI DOĞRULAMA KUTULARI */
+        .verification-box {
+            background: #050505;
+            border: 1px dashed #222222;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .verification-title {
+            font-size: 0.8rem;
+            color: #0088ff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .puzzle-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000000;
+            border: 1px solid #1f1f1f;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        .puzzle-source-area, .puzzle-target-area {
+            display: flex;
+            gap: 8px;
+        }
+
+        .draggable-shape {
+            width: 40px;
+            height: 40px;
+            background: #0088ff;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            cursor: grab;
+            user-select: none;
+            touch-action: none; /* Mobilde ekran kaydırmayı engellemek için */
+        }
+
+        .draggable-shape:active {
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            width: 45px;
+            height: 45px;
+            border: 2px dashed #444444;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #090909;
+            color: #555;
+            font-size: 0.75rem;
+        }
+
+        .drop-zone.hovered {
+            border-color: #0088ff;
+            background: #05121a;
+        }
+
+        .drop-zone.filled {
+            border-style: solid;
+            border-color: #4ade80;
+            background: #05140a;
+            color: #4ade80;
+            font-size: 1.1rem;
         }
 
         .report-actions {
             display: flex;
             gap: 10px;
-            margin-top: 16px;
+            margin-top: 14px;
         }
 
         .report-submit-btn {
@@ -656,7 +738,36 @@
 
                 <div class="report-field">
                     <label for="reportNote">Açıklama *</label>
-                    <textarea id="reportNote" class="report-textarea" placeholder="Örn: İndirme linki 404 veriyor veya dosya adı yanlış yazılmış..." required></textarea>
+                    <textarea id="reportNote" class="report-textarea" placeholder="Örn: İndirme linki 404 veriyor..." required></textarea>
+                </div>
+
+                <!-- 2 AŞAMALI GÜVENLİK DOĞRULAMASI -->
+                <div class="verification-box">
+                    <div class="verification-title">
+                        <i class="fa-solid fa-shield-halved"></i> Güvenlik Doğrulaması (2 Aşama)
+                    </div>
+
+                    <!-- Aşama 1: Matematik Sorusu -->
+                    <div class="report-field" style="margin-bottom: 10px;">
+                        <label id="mathQuestionLabel" style="color: #ffffff; font-size: 0.8rem;"></label>
+                        <input type="number" id="mathAnswerInput" class="report-input" placeholder="Sonucu yazın" required autocomplete="off">
+                    </div>
+
+                    <!-- Aşama 2: Şekli Sürükleme (Dokunmatik + Mouse Uyumlu) -->
+                    <div class="report-field" style="margin-bottom: 0;">
+                        <label style="color: #ffffff; font-size: 0.8rem;">Yıldız (⭐) şeklini hedef kutuya sürükleyin:</label>
+                        <div class="puzzle-container">
+                            <div class="puzzle-source-area">
+                                <div class="draggable-shape" id="shapeStar" data-shape="star">⭐</div>
+                                <div class="draggable-shape" id="shapeCircle" data-shape="circle">🔵</div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: #666;">➔</div>
+                            <div class="puzzle-target-area">
+                                <div class="drop-zone" id="dropZone">Hedef</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="puzzleVerifiedInput" value="false">
+                    </div>
                 </div>
 
                 <div id="reportStatus" class="report-status"></div>
@@ -1784,6 +1895,8 @@
             if (!localStorage.getItem("rom_disclaimer_accepted")) {
                 document.getElementById("disclaimer-modal").style.display = "flex";
             }
+            generateMathQuestion();
+            initTouchDragAndDrop();
         });
 
         function acceptDisclaimer() {
@@ -1857,15 +1970,120 @@
         }
 
         // ==========================================
+        // 2 AŞAMALI YEREL DOĞRULAMA (MATEMATİK + DOKUNMATİK SÜRÜKLE-BIRAK)
+        // ==========================================
+        let currentMathAnswer = 0;
+
+        function generateMathQuestion() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            currentMathAnswer = num1 + num2;
+            document.getElementById('mathQuestionLabel').innerText = `Matematik Doğrulaması: ${num1} + ${num2} kaç eder? *`;
+        }
+
+        // Mobilde ve Masaüstünde Mükemmel Çalışan Touch & Mouse Sürükleme Motoru
+        function initTouchDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable-shape');
+            const dropZone = document.getElementById('dropZone');
+
+            draggables.forEach(item => {
+                let initialX = 0, initialY = 0;
+                let currentX = 0, currentY = 0;
+                let active = false;
+                let originalParent = item.parentElement;
+
+                // Mouse / Dokunma Başlangıcı
+                item.addEventListener('mousedown', dragStart);
+                item.addEventListener('touchstart', dragStart, {passive: false});
+
+                function dragStart(e) {
+                    if (item.getAttribute('draggable') === 'false') return;
+                    active = true;
+                    item.style.zIndex = 1000;
+                    
+                    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+                    initialX = clientX - currentX;
+                    initialY = clientY - currentY;
+
+                    document.addEventListener('mousemove', drag);
+                    document.addEventListener('touchmove', drag, {passive: false});
+                    document.addEventListener('mouseup', dragEnd);
+                    document.addEventListener('touchend', dragEnd);
+                }
+
+                function drag(e) {
+                    if (!active) return;
+                    e.preventDefault();
+
+                    const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+                    currentX = clientX - initialX;
+                    currentY = clientY - initialY;
+
+                    item.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+
+                    // Hedef alanın üzerine gelip gelmediğini kontrol et
+                    const zoneRect = dropZone.getBoundingClientRect();
+                    const itemRect = item.getBoundingClientRect();
+
+                    if (itemRect.left < zoneRect.right && itemRect.right > zoneRect.left &&
+                        itemRect.top < zoneRect.bottom && itemRect.bottom > zoneRect.top) {
+                        dropZone.classList.add('hovered');
+                    } else {
+                        dropZone.classList.remove('hovered');
+                    }
+                }
+
+                function dragEnd(e) {
+                    if (!active) return;
+                    active = false;
+
+                    document.removeEventListener('mousemove', drag);
+                    document.removeEventListener('touchmove', drag);
+                    document.removeEventListener('mouseup', dragEnd);
+                    document.removeEventListener('touchend', dragEnd);
+
+                    const zoneRect = dropZone.getBoundingClientRect();
+                    const itemRect = item.getBoundingClientRect();
+
+                    // Hedef kutunun içine bırakıldı mı?
+                    const isInside = (itemRect.left < zoneRect.right && itemRect.right > zoneRect.left &&
+                                      itemRect.top < zoneRect.bottom && itemRect.bottom > zoneRect.top);
+
+                    dropZone.classList.remove('hovered');
+
+                    if (isInside && item.dataset.shape === 'star') {
+                        dropZone.innerHTML = "⭐";
+                        dropZone.classList.add('filled');
+                        document.getElementById('puzzleVerifiedInput').value = "true";
+                        item.style.display = "none";
+                        document.getElementById('shapeCircle').style.display = "none";
+                    } else {
+                        // Yanlış yere bırakıldıysa yerine geri dön
+                        currentX = 0;
+                        currentY = 0;
+                        item.style.transform = `translate3d(0px, 0px, 0)`;
+                        item.style.zIndex = 1;
+                        if (isInside) {
+                            dropZone.style.borderColor = "#f87171";
+                            setTimeout(() => { dropZone.style.borderColor = "#444444"; }, 1000);
+                        }
+                    }
+                }
+            });
+        }
+
+
+        // ==========================================
         // REPORT (SORUN BİLDİRME) SİSTEMİ
         // ==========================================
-        // Bildirimleri doğrudan panelden görmek için Formspree (ücretsiz) endpoint adresini buraya yapıştır:
-        // Örn: "https://formspree.io/f/xxxxxxxx"
         const REPORT_ENDPOINT = "https://formspree.io/f/myewjpkb";
 
         let activeDeviceCodename = "";
 
-        // openDeviceMenu çağrıldığında aktif cihazı kaydet
         const originalOpenDeviceMenu = openDeviceMenu;
         openDeviceMenu = function(codename, element) {
             activeDeviceCodename = codename;
@@ -1876,7 +2094,6 @@
             const deviceSelect = document.getElementById('reportDevice');
             if (!deviceSelect) return;
 
-            // Mevcut seçenekleri sıfırla (ilk seçenek hariç)
             deviceSelect.innerHTML = '<option value="Genel / Site Geneli">Genel / Site Geneli</option>';
 
             const deviceItems = document.querySelectorAll('.sidebar .device-item');
@@ -1931,6 +2148,22 @@
             }
             populateDeviceFiles();
 
+            // Modalı açarken testleri sıfırla ve yeni soru üret
+            generateMathQuestion();
+            document.getElementById('mathAnswerInput').value = '';
+            document.getElementById('puzzleVerifiedInput').value = 'false';
+            
+            const dropZone = document.getElementById('dropZone');
+            dropZone.innerHTML = 'Hedef';
+            dropZone.classList.remove('filled');
+            
+            const shapeStar = document.getElementById('shapeStar');
+            const shapeCircle = document.getElementById('shapeCircle');
+            shapeStar.style.display = "flex";
+            shapeStar.style.transform = "translate3d(0px, 0px, 0)";
+            shapeCircle.style.display = "flex";
+            shapeCircle.style.transform = "translate3d(0px, 0px, 0)";
+
             const statusBox = document.getElementById('reportStatus');
             statusBox.className = 'report-status';
             statusBox.textContent = '';
@@ -1945,59 +2178,67 @@
         async function submitReport(event) {
             event.preventDefault();
 
+            const statusBox = document.getElementById('reportStatus');
+            const userMathInput = parseInt(document.getElementById('mathAnswerInput').value);
+            const isPuzzleDone = document.getElementById('puzzleVerifiedInput').value === "true";
+
+            // Aşama 1 Kontrolü: Matematik
+            if (userMathInput !== currentMathAnswer) {
+                statusBox.className = 'report-status error';
+                statusBox.textContent = 'Matematik doğrulama sonucu yanlış! Lütfen tekrar deneyin.';
+                generateMathQuestion();
+                return;
+            }
+
+            // Aşama 2 Kontrolü: Sürükleme
+            if (!isPuzzleDone) {
+                statusBox.className = 'report-status error';
+                statusBox.textContent = 'Lütfen yıldız (⭐) şeklini hedef kutuya sürükleyin!';
+                return;
+            }
+
             const category = document.getElementById('reportCategory').value;
             const device = document.getElementById('reportDevice').value;
             const file = document.getElementById('reportFile').value;
             const note = document.getElementById('reportNote').value.trim();
             const submitBtn = document.getElementById('reportSubmitBtn');
-            const statusBox = document.getElementById('reportStatus');
 
             submitBtn.disabled = true;
             submitBtn.textContent = 'Gönderiliyor...';
+            statusBox.className = 'report-status';
+            statusBox.textContent = '';
 
-            const payload = {
-                kategori: category,
-                cihaz: device,
-                dosya: file,
-                aciklama: note,
-                tarih: new Date().toLocaleString('tr-TR')
-            };
-
-            if (!REPORT_ENDPOINT) {
-                // Endpoint henüz girilmediyse tarayıcıda yedekle ve bilgi ver
-                const savedReports = JSON.parse(localStorage.getItem('telefonhan_reports') || '[]');
-                savedReports.push(payload);
-                localStorage.setItem('telefonhan_reports', JSON.stringify(savedReports));
-
-                statusBox.className = 'report-status success';
-                statusBox.textContent = 'Bildirim kaydedildi! (Not: Canlı gönderim için kod içindeki REPORT_ENDPOINT alanını bağlayın.)';
-                document.getElementById('reportForm').reset();
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Bildirimi Gönder';
-                return;
-            }
+            const formData = new FormData();
+            formData.append('Kategori', category);
+            formData.append('Cihaz', device);
+            formData.append('Dosya', file);
+            formData.append('Aciklama', note);
+            formData.append('Dogrulama', 'Başarılı (Matematik + Dokunmatik Sürükleme)');
+            formData.append('Tarih', new Date().toLocaleString('tr-TR'));
 
             try {
                 const response = await fetch(REPORT_ENDPOINT, {
                     method: 'POST',
+                    body: formData,
                     headers: {
-                        'Content-Type': 'application/json',
                         'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
+                    }
                 });
 
                 if (response.ok) {
                     statusBox.className = 'report-status success';
                     statusBox.textContent = 'Bildiriminiz başarıyla iletildi. Teşekkürler!';
                     document.getElementById('reportForm').reset();
-                    setTimeout(closeReportModal, 1600);
+                    
+                    setTimeout(() => {
+                        closeReportModal();
+                    }, 1600);
                 } else {
                     throw new Error('Sunucu hatası');
                 }
             } catch (err) {
                 statusBox.className = 'report-status error';
-                statusBox.textContent = 'Gönderim sırasında hata oluştu. Lütfen daha sonra tekrar deneyin.';
+                statusBox.textContent = 'Gönderim sırasında hata oluştu. Lütfen tekrar deneyin.';
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Bildirimi Gönder';
